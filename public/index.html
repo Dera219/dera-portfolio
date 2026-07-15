@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TODO: name — portfolio</title>
+    <meta name="description" content="TODO: see src/content.js" />
+    <link rel="stylesheet" href="../src/css/tokens.css" />
+    <link rel="stylesheet" href="../src/css/main.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!--
+        Content is injected from src/content.js so copy and markup stay separate.
+        The static fallbacks below are what a visitor sees with JS disabled — keep them
+        meaningful rather than empty, or the page is blank for anyone JS fails on.
+      -->
+      <section class="hero" id="hero">
+        <h1 data-content="hero.tagline">TODO: tagline</h1>
+        <p data-content="hero.subtitle">TODO: subtitle</p>
+      </section>
+
+      <section id="about" aria-labelledby="about-h">
+        <h2 id="about-h">About</h2>
+        <div data-content="about.body"><p>TODO</p></div>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-h">
+        <h2 id="projects-h">Projects</h2>
+        <ul class="project-grid" data-content="projects"></ul>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-h">
+        <h2 id="contact-h">Contact</h2>
+        <ul class="links" data-content="links"></ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><span data-content="meta.name">TODO</span></p>
+    </footer>
+
+    <script type="module" src="../src/js/main.js"></script>
+  </body>
+</html>
