@@ -1,0 +1,146 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+  text-wrap: balance;
+  margin: 0 0 var(--space-s);
+}
+
+h1 {
+  font-size: var(--step-4);
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: var(--step-2);
+}
+
+p {
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+/* Never remove focus rings. Keyboard users navigate by them; without one the site is unusable
+   without a mouse. Restyle if the default is ugly — do not delete. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: var(--space-xs);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  padding: var(--space-xs) var(--space-s);
+  border-radius: var(--radius);
+  z-index: 10;
+}
+.skip-link:focus {
+  left: var(--space-s);
+}
+
+main,
+.site-header > nav,
+.site-footer {
+  width: min(100% - 2 * var(--space-m), 68rem);
+  margin-inline: auto;
+}
+
+.site-header nav ul {
+  display: flex;
+  gap: var(--space-m);
+  list-style: none;
+  padding: var(--space-m) 0;
+  margin: 0;
+}
+
+section {
+  padding-block: var(--space-xl);
+  border-top: 1px solid var(--border);
+}
+
+.hero {
+  border-top: 0;
+  min-height: 60svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-m);
+}
+
+.project-card h3 {
+  font-size: var(--step-1);
+}
+
+.project-card .tech {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+}
+
+.site-footer {
+  padding-block: var(--space-l);
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+
+/* Entrance animation. Guarded so content is visible by default — if the observer never fires,
+   or JS dies, the page must still be readable rather than a wall of invisible elements. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
