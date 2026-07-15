@@ -45,6 +45,29 @@ function renderProjects(el, projects) {
   );
 }
 
+function renderExperience(el, entries) {
+  el.replaceChildren(
+    ...entries.map((e) => {
+      const li = document.createElement("li");
+      li.className = "experience-item";
+      li.setAttribute("data-reveal", "");
+
+      const h3 = document.createElement("h3");
+      h3.textContent = `${e.role} — ${e.org}`;
+
+      const period = document.createElement("p");
+      period.className = "period";
+      period.textContent = e.period;
+
+      const detail = document.createElement("p");
+      detail.textContent = e.detail;
+
+      li.append(h3, period, detail);
+      return li;
+    }),
+  );
+}
+
 function renderLinks(el, links) {
   const entries = Object.entries(links).filter(
     ([, v]) => typeof v === "string" && v && !v.startsWith("TODO"),
@@ -71,6 +94,7 @@ function hydrate() {
     if (value == null) continue;
 
     if (path === "projects") renderProjects(el, value);
+    else if (path === "experience") renderExperience(el, value);
     else if (path === "links") renderLinks(el, value);
     else if (Array.isArray(value)) {
       el.replaceChildren(
