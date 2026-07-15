@@ -28,11 +28,11 @@ export const content = {
 
   projects: [
     {
-      name: "Algorithmic Trading Framework",
+      name: "Strategy Compiler (Java)",
       blurb:
-        "A framework that evolves trading strategies instead of hand-writing them — genetic-programming-inspired search over populations of 100 strategies across 20 generations, with a backtester that simulates each one against price data.",
+        "An experiment in runtime code generation: a population-based search tunes the parameters of a trading rule, then the winning rule is emitted as Java source and compiled in-process with the Java Compiler API, so the result is a real loaded class rather than an interpreted config.",
       learned:
-        "Runtime code generation via the Java Compiler API let the search produce and execute real strategies rather than interpret a config. The harder lesson was in the backtester: a strategy that looks profitable is usually just fitting noise, so realistic cost and slippage modeling matters more than the search algorithm does.",
+        "TODO — rewrite this in your own words; see the note at the bottom of this file.",
       tech: ["Java 17", "Java Compiler API", "Maven", "React", "Vite"],
       links: { repo: "https://github.com/Dera219/Trading_Algorithm", live: null },
     },

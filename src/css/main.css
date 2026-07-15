@@ -71,7 +71,10 @@ main,
 
 .site-header nav ul {
   display: flex;
-  gap: var(--space-m);
+  /* Must wrap: the nav grew to four items and a non-wrapping flex row forces the whole
+     page to scroll sideways on narrow screens. */
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-m);
   list-style: none;
   padding: var(--space-m) 0;
   margin: 0;
@@ -114,6 +117,31 @@ section {
   font-family: var(--font-mono);
   font-size: var(--step--1);
   color: var(--text-muted);
+}
+
+.experience-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-m);
+}
+
+.experience-item {
+  border-left: 2px solid var(--border);
+  padding-left: var(--space-m);
+}
+
+.experience-item h3 {
+  font-size: var(--step-1);
+  margin-bottom: var(--space-xs);
+}
+
+.experience-item .period {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--text-muted);
+  margin: 0 0 var(--space-xs);
 }
 
 .links {
