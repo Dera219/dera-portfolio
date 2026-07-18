@@ -6,44 +6,52 @@
 export const content = {
   meta: {
     name: "Chidera Onyebu",
-    title: "Chidera Onyebu — CS & Applied Math @ UMD",
+    title: "Chidera Onyebu — Quant / CS & Applied Math @ UMD",
     description:
-      "Computer Science and Applied Mathematics student at the University of Maryland. I build trading systems, ML models, and tools for people learning to code.",
+      "Computer Science and Applied Mathematics at the University of Maryland, building toward quantitative research and systematic trading. Event-driven backtesting, honest out-of-sample validation, ML.",
     url: "https://dera219.github.io/dera-portfolio/",
   },
 
   hero: {
     tagline: "I build systems that make decisions under uncertainty.",
     subtitle:
-      "CS & Applied Math at the University of Maryland. Currently: evolutionary search for trading strategies, and computer vision for nutrition estimation.",
+      "CS & Applied Mathematics at the University of Maryland, building toward quantitative research and systematic trading — event-driven backtesting, honest out-of-sample validation, and machine learning.",
+    // Drop a photo at assets/img/portrait.jpg (or .png) and set this to its path — it appears
+    // automatically, framed, beside the hero. Leave null and the layout centers the text cleanly.
+    portrait: null,
   },
 
   about: {
     body: [
-      "I'm a Computer Science and Applied Mathematics student at the University of Maryland, class of 2028. I grew up in Lagos, Nigeria, and studied at Jesuit Memorial College before coming to College Park.",
-      "Most of what I build sits where math meets messy real-world data — trading strategies that have to survive costs and slippage, vision models that have to work on photographs of actual food. I'm drawn to the part where a clean idea meets a system that doesn't cooperate.",
-      "I also spend a lot of time teaching. Through ColorStack and Alpha Lambda Delta I mentor other students through CS coursework, which has taught me that explaining something clearly is a much better test of understanding than finishing an assignment.",
+      "I'm a Computer Science and Applied Mathematics student at the University of Maryland (class of 2028), building toward quantitative research and systematic trading. The through-line in everything I make is decision-making under uncertainty: strategies that have to survive real costs and slippage, and models that have to generalize past the data they were trained on.",
+      "I care most about the parts people skip. My backtester is event-driven, so lookahead bias is structurally hard to introduce; it models commission, spread, and market impact, and it validates walk-forward so an in-sample number never gets mistaken for an edge. On the machine-learning side, I recently found and quantified a data-leakage flaw in a computer-vision project — a split that looked clean but inflated the reported accuracy — and rebuilt the evaluation to measure the honest number. Knowing when a good-looking result is lying to you is the skill I keep sharpening.",
+      "I grew up in Lagos, Nigeria, and I'm happiest where a clean mathematical idea meets a system that refuses to cooperate. I also mentor CS students through ColorStack and Alpha Lambda Delta — explaining an idea cleanly is the fastest way to find the hole in it.",
+      "If you're building systematic strategies and want someone who treats an out-of-sample loss as the most useful result in the room, I'd like to talk.",
     ],
   },
 
   projects: [
     {
-      name: "Strategy Compiler (Java)",
+      name: "Apex — Event-Driven Backtesting Framework",
       blurb:
-        "An experiment in runtime code generation: a population-based search tunes the parameters of a trading rule, then the winning rule is emitted as Java source and compiled in-process with the Java Compiler API, so the result is a real loaded class rather than an interpreted config.",
+        "A quantitative research framework built the way a fund would want it: an event loop that makes lookahead bias structurally hard to introduce, a cost model for commission, spread, and market impact, and walk-forward validation. Its own demo proves the point — a strategy that beats buy-and-hold in-sample loses out-of-sample, which is exactly the honesty the framework exists to enforce.",
       learned:
-        "TODO — rewrite this in your own words; see the note at the bottom of this file.",
-      tech: ["Java 17", "Java Compiler API", "Maven", "React", "Vite"],
-      links: { repo: "https://github.com/Dera219/Trading_Algorithm", live: null },
+        "The most valuable output a backtest can give you is the one that says your idea doesn't work. Enforcing that structurally — no-lookahead by construction, out-of-sample by default — matters more than any single strategy.",
+      tech: ["Python", "NumPy", "Event-driven engine", "Walk-forward validation"],
+      image: "assets/img/proj-apex.svg",
+      imageAlt: "Stylized equity curves diverging in-sample versus out-of-sample.",
+      links: { repo: "https://github.com/Dera219/apex-trading-agent", live: null },
     },
     {
-      name: "Nutrition5k — Food Image Analysis",
+      name: "Nutrition5k — Data-Leakage Audit + CNN",
       blurb:
-        "Team CNN project estimating nutritional content from food photographs, built on Google Research's Nutrition5k dataset. Part of the AI4ALL program.",
+        "A calorie classifier on food images — and an audit that changed how the whole project's numbers should be read. The team's split passed a dish-ID overlap check but leaked at the capture-session level; a controlled 5-seed, 2-architecture experiment showed that inflates the reported accuracy by ~3 points. On a clean session-grouped split my model reaches ~74%, 2.2× the baseline, honestly measured.",
       learned:
-        "Raising input resolution from 128×128 to 224×224 moved test accuracy from 65.9% to 66.9% — a real but modest gain, and a useful reminder that resolution isn't where the headroom was. Exploring depth data as a second modality to estimate food mass.",
-      tech: ["Python", "PyTorch", "CNNs", "Streamlit"],
-      links: { repo: "https://github.com/MalikSCole/AI4all-Group-Project", live: null },
+        "A model that looks accurate because of leakage fails quietly on real users — worse than one that's honestly mediocre. Finding the leak, quantifying it, and rebuilding the evaluation was the real work.",
+      tech: ["Python", "PyTorch", "Ordinal CNN", "scikit-learn"],
+      image: "assets/img/proj-nutrition.svg",
+      imageAlt: "Three-class confusion-matrix motif for Low, Medium, and High calories.",
+      links: { repo: "https://github.com/Dera219/ai4all-ml-project", live: null },
     },
   ],
 

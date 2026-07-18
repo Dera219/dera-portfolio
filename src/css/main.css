@@ -14,6 +14,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* A soft accent glow warms the top of the page so the hero never reads as a flat slab.
+   Fixed + behind everything, pointer-events off so it never intercepts a click. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 75% -5%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(50rem 40rem at 5% 10%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
+}
+
 h1,
 h2,
 h3 {
@@ -85,13 +98,115 @@ section {
   border-top: 1px solid var(--border);
 }
 
+/* ---- Hero ---------------------------------------------------------------- */
+
 .hero {
   border-top: 0;
-  min-height: 60svh;
+  position: relative;
+  min-height: 78svh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  isolation: isolate; /* keep the canvas contained behind the hero content */
+  overflow: hidden;
 }
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* Fade the paths out toward the bottom so text stays crisp and the section blends into the page. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-l);
+  align-items: center;
+  width: 100%;
+}
+
+.hero-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--space-s);
+}
+
+.hero-sub {
+  font-size: var(--step-1);
+  color: var(--text-muted);
+  max-width: 42ch;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7em 1.15em;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-color: var(--accent);
+}
+.btn-primary:hover {
+  filter: brightness(1.06);
+}
+
+/* Portrait: only present when content.hero.portrait is set (main.js adds it). */
+.hero-portrait-slot {
+  display: none;
+}
+.hero-portrait-slot.has-portrait {
+  display: block;
+  justify-self: center;
+}
+.hero-portrait {
+  width: min(20rem, 60vw);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: calc(var(--radius) * 2);
+  border: 1px solid var(--border);
+  box-shadow: 0 1.5rem 4rem -1rem color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+@media (min-width: 52rem) {
+  .hero-inner.two-col,
+  .hero-portrait-slot.has-portrait ~ * {
+    /* reserved for future layouts */
+  }
+  /* When a portrait exists, split the hero into two columns. */
+  .hero:has(.has-portrait) .hero-inner {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+/* ---- Projects ------------------------------------------------------------ */
 
 .project-grid {
   list-style: none;
@@ -99,24 +214,72 @@ section {
   margin: 0;
   display: grid;
   gap: var(--space-m);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
 }
 
 .project-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: calc(var(--radius) * 1.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
+  box-shadow: 0 1.5rem 3rem -1.5rem color-mix(in oklab, var(--accent) 55%, transparent);
+}
+
+.project-media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: #0d1714;
+}
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.project-card:hover .project-media img {
+  transform: scale(1.04);
+}
+
+.project-body {
   padding: var(--space-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex: 1;
 }
 
 .project-card h3 {
   font-size: var(--step-1);
+  margin: 0;
 }
 
 .project-card .tech {
   font-family: var(--font-mono);
   font-size: var(--step--1);
   color: var(--text-muted);
+  margin: 0;
+}
+
+.project-link {
+  margin-top: auto;
+  padding-top: var(--space-xs);
+  font-weight: 600;
+  text-decoration: none;
+}
+.project-link:hover {
+  text-decoration: underline;
 }
 
 .experience-list {
