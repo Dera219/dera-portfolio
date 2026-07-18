@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Three-class confusion matrix motif for Low, Medium and High calories">
+  <defs>
+    <linearGradient id="nutBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#12211d"/>
+      <stop offset="1" stop-color="#0d1714"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#nutBg)"/>
+  <!-- 3x3 confusion matrix: strong diagonal, near-zero corners (the real finding) -->
+  <g transform="translate(210,60)">
+    <!-- fill opacity encodes cell value; diagonal dark = high -->
+    <!-- row Low -->
+    <rect x="0"   y="0"   width="72" height="72" fill="#7fbfa8" fill-opacity="0.85"/>
+    <rect x="76"  y="0"   width="72" height="72" fill="#7fbfa8" fill-opacity="0.22"/>
+    <rect x="152" y="0"   width="72" height="72" fill="#7fbfa8" fill-opacity="0.03"/>
+    <!-- row Medium -->
+    <rect x="0"   y="76"  width="72" height="72" fill="#7fbfa8" fill-opacity="0.14"/>
+    <rect x="76"  y="76"  width="72" height="72" fill="#7fbfa8" fill-opacity="0.70"/>
+    <rect x="152" y="76"  width="72" height="72" fill="#7fbfa8" fill-opacity="0.20"/>
+    <!-- row High -->
+    <rect x="0"   y="152" width="72" height="72" fill="#7fbfa8" fill-opacity="0.02"/>
+    <rect x="76"  y="152" width="72" height="72" fill="#7fbfa8" fill-opacity="0.20"/>
+    <rect x="152" y="152" width="72" height="72" fill="#7fbfa8" fill-opacity="0.82"/>
+    <!-- grid lines -->
+    <g stroke="#0d1714" stroke-width="3">
+      <rect x="0" y="0" width="224" height="224" fill="none"/>
+      <line x1="76" y1="0" x2="76" y2="224"/><line x1="152" y1="0" x2="152" y2="224"/>
+      <line x1="0" y1="76" x2="224" y2="76"/><line x1="0" y1="152" x2="224" y2="152"/>
+    </g>
+  </g>
+  <!-- axis labels -->
+  <g fill="#a3a09a" font-family="ui-monospace, monospace" font-size="14">
+    <text x="230" y="52">Low</text><text x="300" y="52">Med</text><text x="380" y="52">High</text>
+    <text x="150" y="105" text-anchor="end">Low</text>
+    <text x="150" y="181" text-anchor="end">Med</text>
+    <text x="150" y="257" text-anchor="end">High</text>
+  </g>
+  <text x="320" y="322" text-anchor="middle" fill="#7fbfa8" font-family="ui-monospace, monospace" font-size="15">predicted → true ↓ · clean split</text>
+</svg>

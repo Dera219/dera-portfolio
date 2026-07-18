@@ -18,6 +18,23 @@ function renderProjects(el, projects) {
       li.className = "project-card";
       li.setAttribute("data-reveal", "");
 
+      // Image is optional; a card with a broken/missing src should still look intentional, so we
+      // only add the figure when a path is provided.
+      if (p.image) {
+        const fig = document.createElement("div");
+        fig.className = "project-media";
+        const img = document.createElement("img");
+        img.src = p.image;
+        img.alt = p.imageAlt ?? "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        fig.append(img);
+        li.append(fig);
+      }
+
+      const bodyWrap = document.createElement("div");
+      bodyWrap.className = "project-body";
+
       const h3 = document.createElement("h3");
       h3.textContent = p.name;
 
@@ -28,21 +45,38 @@ function renderProjects(el, projects) {
       tech.className = "tech";
       tech.textContent = (p.tech ?? []).join(" · ");
 
-      li.append(h3, blurb, tech);
+      bodyWrap.append(h3, blurb, tech);
 
       if (p.links?.repo && !p.links.repo.startsWith("TODO")) {
         const a = document.createElement("a");
+        a.className = "project-link";
         a.href = p.links.repo;
-        a.textContent = "Source";
+        a.textContent = "Source →";
         // noopener is required on target=_blank: without it the opened page gets a handle back
         // to this window via window.opener and can redirect it.
         a.rel = "noopener noreferrer";
         a.target = "_blank";
-        li.append(a);
+        bodyWrap.append(a);
       }
+
+      li.append(bodyWrap);
       return li;
     }),
   );
+}
+
+/** Inject the hero portrait only when content.js provides one. Keeps the layout clean when it's
+ *  null, and means adding a photo later is a one-line content change, not a markup change. */
+function renderPortrait(slot, portraitPath, name) {
+  if (!slot || !portraitPath) return;
+  const img = document.createElement("img");
+  img.className = "hero-portrait";
+  img.src = portraitPath;
+  img.alt = `Portrait of ${name}`;
+  img.loading = "eager";
+  img.decoding = "async";
+  slot.append(img);
+  slot.classList.add("has-portrait");
 }
 
 function renderExperience(el, entries) {
@@ -87,6 +121,12 @@ function renderLinks(el, links) {
 
 function hydrate() {
   document.title = content.meta.title;
+
+  renderPortrait(
+    document.querySelector("[data-portrait]"),
+    content.hero?.portrait,
+    content.meta.name,
+  );
 
   for (const el of document.querySelectorAll("[data-content]")) {
     const path = el.dataset.content;

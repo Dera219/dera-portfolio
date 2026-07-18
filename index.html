@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Chidera Onyebu — CS & Applied Math @ UMD</title>
     <meta name="description" content="Computer Science and Applied Mathematics student at the University of Maryland." />
-    <link rel="stylesheet" href="../src/css/tokens.css" />
-    <link rel="stylesheet" href="../src/css/main.css" />
+    <link rel="stylesheet" href="src/css/tokens.css" />
+    <link rel="stylesheet" href="src/css/main.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -29,8 +29,20 @@
         meaningful rather than empty, or the page is blank for anyone JS fails on.
       -->
       <section class="hero" id="hero">
-        <h1 data-content="hero.tagline">I build systems that make decisions under uncertainty.</h1>
-        <p data-content="hero.subtitle">CS & Applied Math at the University of Maryland.</p>
+        <canvas class="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="hero-kicker">Quantitative research · systematic trading</p>
+            <h1 data-content="hero.tagline">I build systems that make decisions under uncertainty.</h1>
+            <p class="hero-sub" data-content="hero.subtitle">CS & Applied Math at the University of Maryland.</p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#projects">See the work</a>
+              <a class="btn" href="#contact">Get in touch</a>
+            </div>
+          </div>
+          <!-- Portrait is injected here by main.js only when hero.portrait is set in content.js. -->
+          <div class="hero-portrait-slot" data-portrait></div>
+        </div>
       </section>
 
       <section id="about" aria-labelledby="about-h">
@@ -58,6 +70,10 @@
       <p><span data-content="meta.name">Chidera Onyebu</span></p>
     </footer>
 
-    <script type="module" src="../src/js/main.js"></script>
+    <script type="module" src="src/js/main.js"></script>
+    <script type="module">
+      import { initHero } from "./src/js/hero.js";
+      initHero(document.querySelector(".hero-canvas"));
+    </script>
   </body>
 </html>
