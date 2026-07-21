@@ -272,9 +272,15 @@ section {
   margin: 0;
 }
 
-.project-link {
+.project-links {
   margin-top: auto;
   padding-top: var(--space-xs);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+}
+
+.project-link {
   font-weight: 600;
   text-decoration: none;
 }

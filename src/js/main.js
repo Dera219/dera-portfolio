@@ -47,17 +47,26 @@ function renderProjects(el, projects) {
 
       bodyWrap.append(h3, blurb, tech);
 
-      if (p.links?.repo && !p.links.repo.startsWith("TODO")) {
+      const linkRow = document.createElement("div");
+      linkRow.className = "project-links";
+      const linkLabels = [
+        ["repo", "Source →"],
+        ["writeup", "Write-up →"],
+      ];
+      for (const [key, label] of linkLabels) {
+        const href = p.links?.[key];
+        if (!href || href.startsWith("TODO")) continue;
         const a = document.createElement("a");
         a.className = "project-link";
-        a.href = p.links.repo;
-        a.textContent = "Source →";
+        a.href = href;
+        a.textContent = label;
         // noopener is required on target=_blank: without it the opened page gets a handle back
         // to this window via window.opener and can redirect it.
         a.rel = "noopener noreferrer";
         a.target = "_blank";
-        bodyWrap.append(a);
+        linkRow.append(a);
       }
+      if (linkRow.childElementCount > 0) bodyWrap.append(linkRow);
 
       li.append(bodyWrap);
       return li;
