@@ -51,7 +51,12 @@ export const content = {
       tech: ["Python", "PyTorch", "Ordinal CNN", "scikit-learn"],
       image: "assets/img/proj-nutrition.svg",
       imageAlt: "Three-class confusion-matrix motif for Low, Medium, and High calories.",
-      links: { repo: "https://github.com/Dera219/ai4all-ml-project", live: null },
+      links: {
+        repo: "https://github.com/Dera219/ai4all-ml-project",
+        writeup:
+          "https://github.com/Dera219/ai4all-ml-project/blob/main/docs/session-leakage-nutrition5k.md",
+        live: null,
+      },
     },
   ],
 
