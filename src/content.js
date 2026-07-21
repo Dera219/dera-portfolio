@@ -53,8 +53,10 @@ export const content = {
       imageAlt: "Three-class confusion-matrix motif for Low, Medium, and High calories.",
       links: {
         repo: "https://github.com/Dera219/ai4all-ml-project",
-        writeup:
-          "https://github.com/Dera219/ai4all-ml-project/blob/main/docs/session-leakage-nutrition5k.md",
+        // Repo is private for now, so the published write-up URL would 404 for visitors.
+        // When it goes public again, set this to:
+        // "https://github.com/Dera219/ai4all-ml-project/blob/main/docs/session-leakage-nutrition5k.md"
+        writeup: null,
         live: null,
       },
     },
