@@ -81,6 +81,6 @@ export const content = {
     github: "https://github.com/Dera219",
     linkedin: "https://www.linkedin.com/in/chideraonyebu/",
     email: "conyebu@terpmail.umd.edu",
-    resume: null,
+    resume: "assets/Chidera-Onyebu-Resume.pdf",
   },
 };
