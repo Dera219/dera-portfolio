@@ -131,6 +131,10 @@ function renderLinks(el, links) {
 function hydrate() {
   document.title = content.meta.title;
 
+  // Copyright year, so the footer doesn't advertise a stale date every January.
+  const year = document.querySelector("[data-year]");
+  if (year) year.textContent = String(new Date().getFullYear());
+
   renderPortrait(
     document.querySelector("[data-portrait]"),
     content.hero?.portrait,
