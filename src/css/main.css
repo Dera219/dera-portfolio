@@ -78,7 +78,7 @@ a {
 main,
 .site-header > nav,
 .site-footer {
-  width: min(100% - 2 * var(--space-m), 68rem);
+  width: min(100% - 2 * var(--space-m), var(--container));
   margin-inline: auto;
 }
 
@@ -116,9 +116,19 @@ section {
   width: 100%;
   height: 100%;
   z-index: -1;
-  /* Fade the paths out toward the bottom so text stays crisp and the section blends into the page. */
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  /* Two masks, intersected: fade out toward the bottom so the section blends into the page,
+     AND fade out on the left so the paths never cross the headline. Without the horizontal one
+     the lines run straight through the h1 — barely visible on the dark theme, but a real
+     contrast problem in light mode where the accent is a dark green on near-white.
+     If mask-composite is unsupported the first layer still applies, which is the old behaviour. */
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 55%, transparent 100%),
+    linear-gradient(to right, transparent 38%, #000 78%);
+  mask-image:
+    linear-gradient(to bottom, #000 55%, transparent 100%),
+    linear-gradient(to right, transparent 38%, #000 78%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .hero-inner {
@@ -214,7 +224,9 @@ section {
   margin: 0;
   display: grid;
   gap: var(--space-m);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  /* auto-fit + a floor means 1 column on phones, 2 on laptops, 3 only when the page is wide
+     enough that a third wouldn't squeeze the cards. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
 }
 
 .project-card {
@@ -323,8 +335,14 @@ section {
 
 .site-footer {
   padding-block: var(--space-l);
+  border-top: 1px solid var(--border);
   color: var(--text-muted);
   font-size: var(--step--1);
+}
+
+.site-footer p {
+  margin: 0;
+  max-width: none;
 }
 
 /* Entrance animation. Guarded so content is visible by default — if the observer never fires,

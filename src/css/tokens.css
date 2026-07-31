@@ -3,13 +3,20 @@
 :root {
   color-scheme: light dark;
 
-  /* Type scale — 1.25 ratio, fluid between mobile and desktop */
-  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
-  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.13rem);
-  --step-1: clamp(1.25rem, 1.18rem + 0.35vw, 1.41rem);
-  --step-2: clamp(1.56rem, 1.44rem + 0.6vw, 1.76rem);
-  --step-3: clamp(1.95rem, 1.76rem + 0.95vw, 2.2rem);
-  --step-4: clamp(2.44rem, 2.14rem + 1.5vw, 2.75rem);
+  /* Type scale — 1.25 ratio, fluid between mobile and desktop.
+     Ceilings are set high enough that the page keeps growing on 1440px+ displays instead of
+     freezing at laptop size — the old caps made a 1920px monitor look like a small window with
+     wide empty margins. Prose line length is still protected separately by --measure. */
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 1rem);
+  --step-0: clamp(1rem, 0.94rem + 0.25vw, 1.25rem);
+  --step-1: clamp(1.25rem, 1.16rem + 0.4vw, 1.6rem);
+  --step-2: clamp(1.56rem, 1.4rem + 0.7vw, 2.25rem);
+  --step-3: clamp(1.95rem, 1.7rem + 1.1vw, 3rem);
+  --step-4: clamp(2.44rem, 2rem + 2.2vw, 4.5rem);
+
+  /* Page width. Steps up on larger displays (see the media queries below) so a big monitor
+     shows a bigger page, not the same column with more emptiness. */
+  --container: 68rem;
 
   --space-xs: 0.5rem;
   --space-s: 1rem;
@@ -32,6 +39,21 @@
   --accent: #2f5d50;
   --accent-contrast: #ffffff;
   --focus: #2f5d50;
+}
+
+/* Wider canvases get a wider page. Three steps rather than one so the jump is never jarring. */
+@media (min-width: 90rem) {
+  :root {
+    --container: 80rem;
+    --space-xl: 7rem;
+  }
+}
+
+@media (min-width: 120rem) {
+  :root {
+    --container: 104rem;
+    --space-xl: 8rem;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
