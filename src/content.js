@@ -101,3 +101,18 @@ export const content = {
     resume: "assets/Chidera-Onyebu-Resume.pdf",
   },
 };
+
+/**
+ * Editing notes.
+ *
+ * 1. Contact details on the page are email and LinkedIn only. Phone stays out of the markup —
+ *    anything in page HTML is scraped and cannot be un-published.
+ *
+ * 2. Prefer specific, checkable numbers over percentages: "100 strategies, 20 generations",
+ *    "5 seeds x 2 architectures". A figure a reader can verify against the linked repo carries
+ *    more weight than one they can only take on faith.
+ *
+ * 3. Project images are decorative SVG motifs (assets/img/proj-*.svg), not screenshots — nothing
+ *    here should read as real program output unless it is. To use a real figure, point a
+ *    project's `image` at its path and keep it roughly 16:9.
+ */
