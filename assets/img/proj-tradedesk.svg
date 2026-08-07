@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Agent graph: classify_intent fans out to six intents, but the trade node has no edge to confirmation — only an explicit yes reaches place_order">
+  <defs>
+    <linearGradient id="tdBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#12211d"/>
+      <stop offset="1" stop-color="#0d1714"/>
+    </linearGradient>
+    <marker id="tdArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7fbfa8" fill-opacity="0.8"/>
+    </marker>
+    <marker id="tdArrowDim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7fbfa8" fill-opacity="0.45"/>
+    </marker>
+  </defs>
+
+  <rect width="640" height="360" fill="url(#tdBg)"/>
+
+  <g stroke="#2f5d50" stroke-opacity="0.16" stroke-width="1">
+    <line x1="0" y1="90" x2="640" y2="90"/>
+    <line x1="0" y1="180" x2="640" y2="180"/>
+    <line x1="0" y1="270" x2="640" y2="270"/>
+  </g>
+
+  <g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif">
+
+    <!-- START -->
+    <rect x="272" y="18" width="96" height="28" rx="14" fill="none" stroke="#7fbfa8" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="320" y="37" text-anchor="middle" fill="#7fbfa8" fill-opacity="0.85" font-size="12.5" letter-spacing="1.6">START</text>
+
+    <!-- START branches: left to classify, right to confirmation -->
+    <g stroke="#7fbfa8" stroke-opacity="0.5" stroke-width="1.5" fill="none" marker-end="url(#tdArrow)">
+      <path d="M290,46 L164,76"/>
+      <path d="M350,46 L472,76"/>
+    </g>
+
+    <!-- ── left column: classification ─────────────────────────── -->
+    <rect x="46" y="80" width="192" height="34" rx="8" fill="#0d1714" stroke="#7fbfa8" stroke-opacity="0.45" stroke-width="1.5"/>
+    <text x="142" y="102" text-anchor="middle" fill="#e8efec" font-size="13.5">classify_intent</text>
+
+    <!-- fan-out spine -->
+    <path d="M142,114 L142,318" stroke="#7fbfa8" stroke-opacity="0.28" stroke-width="1.4" fill="none"/>
+
+    <!-- six intent pills, one clean stack -->
+    <g font-size="12">
+      <g stroke="#2f5d50" stroke-opacity="0.8" stroke-width="1.25" fill="#0d1714">
+        <rect x="72" y="132" width="140" height="26" rx="6"/>
+        <rect x="72" y="166" width="140" height="26" rx="6"/>
+        <rect x="72" y="200" width="140" height="26" rx="6"/>
+        <rect x="72" y="268" width="140" height="26" rx="6"/>
+        <rect x="72" y="302" width="140" height="26" rx="6"/>
+      </g>
+      <!-- trade sits in the stack but is emphasised: it proposes, it does not fill -->
+      <rect x="72" y="234" width="140" height="26" rx="6" fill="#0d1714" stroke="#7fbfa8" stroke-opacity="0.95" stroke-width="1.75"/>
+
+      <g text-anchor="middle" fill="#cfe0d9">
+        <text x="142" y="150">educate</text>
+        <text x="142" y="184">research</text>
+        <text x="142" y="218">portfolio</text>
+        <text x="142" y="252" fill="#e8efec">trade</text>
+        <text x="142" y="286">cancel_modify</text>
+        <text x="142" y="320">out_of_scope</text>
+      </g>
+
+      <g stroke="#7fbfa8" stroke-opacity="0.3" stroke-width="1.2" fill="none" marker-end="url(#tdArrowDim)">
+        <path d="M142,145 L66,145"/><path d="M142,179 L66,179"/><path d="M142,213 L66,213"/>
+        <path d="M142,247 L66,247"/><path d="M142,281 L66,281"/><path d="M142,315 L66,315"/>
+      </g>
+    </g>
+
+    <!-- ── right column: the only path to a fill ────────────────── -->
+    <rect x="392" y="80" width="176" height="34" rx="8" fill="#0d1714" stroke="#7fbfa8" stroke-width="2.25"/>
+    <text x="480" y="102" text-anchor="middle" fill="#e8efec" font-size="13.5">confirmation</text>
+    <text x="480" y="132" text-anchor="middle" fill="#8a9b95" font-size="11.5">an explicit “yes”</text>
+
+    <path d="M480,142 L480,242" stroke="#7fbfa8" stroke-width="2.25" fill="none" marker-end="url(#tdArrow)"/>
+
+    <rect x="404" y="248" width="152" height="34" rx="8" fill="#0d1714" stroke="#7fbfa8" stroke-width="2.25"/>
+    <text x="480" y="270" text-anchor="middle" fill="#e8efec" font-size="13.5">place_order</text>
+    <text x="480" y="300" text-anchor="middle" fill="#7fbfa8" fill-opacity="0.8" font-size="11.5">reachable from exactly</text>
+    <text x="480" y="316" text-anchor="middle" fill="#7fbfa8" fill-opacity="0.8" font-size="11.5">one node</text>
+
+    <!-- ── the absent edge ──────────────────────────────────────── -->
+    <path d="M218,240 L386,120" stroke="#8a9b95" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="5 6" fill="none"/>
+    <g stroke="#c98a7a" stroke-width="2.75" stroke-linecap="round">
+      <line x1="290" y1="177" x2="312" y2="199"/>
+      <line x1="312" y1="177" x2="290" y2="199"/>
+    </g>
+    <text x="301" y="228" text-anchor="middle" fill="#c98a7a" font-size="12.5">no such edge</text>
+    <text x="301" y="245" text-anchor="middle" fill="#8a9b95" font-size="11">proposing an order cannot</text>
+    <text x="301" y="260" text-anchor="middle" fill="#8a9b95" font-size="11">flow into filling it</text>
+  </g>
+</svg>
