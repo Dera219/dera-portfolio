@@ -11,10 +11,11 @@ All copy lives in [`src/content.js`](src/content.js). Editing the site never mea
 | Project | What it is | Repo |
 |---|---|---|
 | **TradeDesk** | Conversational trading agent whose confirmation gate is enforced by the graph's shape — no edge connects proposing an order to filling one. FastAPI + LangGraph + RAG. AI.Accelerate FY26 capstone. | [tradedesk](https://github.com/Dera219/tradedesk) |
+| **crucible** | Cross-sectional research platform whose causality checker proves a signal cannot see the future — perturb everything after time *t*, assert nothing before *t* moved. Thirteen bugs caught in its own code after the tests were green; twelve made results look better than reality. | [crucible](https://github.com/Dera219/crucible) |
 | **Apex** | Event-driven backtester with a cost model and walk-forward validation. Its own demo wins in-sample and loses out-of-sample — the honesty the framework exists to enforce. | [apex-trading-agent](https://github.com/Dera219/apex-trading-agent) |
 | **Nutrition5k** | Calorie CNN plus a session-level data-leakage audit that changed how the project's numbers should be read. | [ai4all-ml-project](https://github.com/Dera219/ai4all-ml-project) |
 
-Adding a fourth means appending one object to the `projects` array in `src/content.js` and dropping
+Adding another means appending one object to the `projects` array in `src/content.js` and dropping
 a ~16:9 image in `assets/img/`. Nothing else.
 
 ## Design constraints
