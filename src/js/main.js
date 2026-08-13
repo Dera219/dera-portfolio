@@ -45,7 +45,18 @@ function renderProjects(el, projects) {
       tech.className = "tech";
       tech.textContent = (p.tech ?? []).join(" · ");
 
-      bodyWrap.append(h3, blurb, tech);
+      bodyWrap.append(h3, blurb);
+
+      // The takeaway paragraph is optional; only render the pull-quote when one is written.
+      const learnedText = typeof p.learned === "string" ? p.learned.trim() : "";
+      if (learnedText) {
+        const learned = document.createElement("blockquote");
+        learned.className = "learned";
+        learned.textContent = learnedText;
+        bodyWrap.append(learned);
+      }
+
+      bodyWrap.append(tech);
 
       const linkRow = document.createElement("div");
       linkRow.className = "project-links";
@@ -130,6 +141,13 @@ function renderLinks(el, links) {
 
 function hydrate() {
   document.title = content.meta.title;
+
+  // Keep the meta description in sync with content.js, same as the title — the static value in
+  // index.html is only the no-JS fallback.
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription && content.meta.description) {
+    metaDescription.setAttribute("content", content.meta.description);
+  }
 
   // Copyright year, so the footer doesn't advertise a stale date every January.
   const year = document.querySelector("[data-year]");
