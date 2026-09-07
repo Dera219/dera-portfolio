@@ -61,6 +61,7 @@ function renderProjects(el, projects) {
       const linkRow = document.createElement("div");
       linkRow.className = "project-links";
       const linkLabels = [
+        ["live", "Live site →"],
         ["repo", "Source →"],
         ["writeup", "Write-up →"],
       ];

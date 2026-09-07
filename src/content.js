@@ -6,16 +6,16 @@
 export const content = {
   meta: {
     name: "Chidera Onyebu",
-    title: "Chidera Onyebu — Quant / CS & Applied Math @ UMD",
+    title: "Chidera Onyebu — CS & Applied Math @ UMD",
     description:
-      "Computer Science and Applied Mathematics at the University of Maryland, building toward quantitative research and systematic trading. Event-driven backtesting, honest out-of-sample validation, ML.",
+      "Computer Science and Applied Mathematics at the University of Maryland. Payments systems, research infrastructure, and ML — built so the property you need holds by construction, then proven.",
     url: "https://dera219.github.io/dera-portfolio/",
   },
 
   hero: {
-    tagline: "I build systems that make decisions under uncertainty.",
+    tagline: "I build systems whose guarantees are structural, not hopeful.",
     subtitle:
-      "CS & Applied Mathematics at the University of Maryland, building toward quantitative research and systematic trading — event-driven backtesting, honest out-of-sample validation, and machine learning.",
+      "CS & Applied Mathematics at the University of Maryland. A deployed marketplace with a real money path, a research platform built to kill its own results, and an LLM agent that cannot execute an unconfirmed order — different domains, one habit: make the property hold by construction, then prove it does.",
     // Drop a photo at assets/img/portrait.jpg (or .png) and set this to its path — it appears
     // automatically, framed, beside the hero. Leave null and the layout centers the text cleanly.
     portrait: null,
@@ -23,15 +23,32 @@ export const content = {
 
   about: {
     body: [
-      "I'm a Computer Science and Applied Mathematics student at the University of Maryland (class of 2028), building toward quantitative research and systematic trading. The through-line in everything I make is decision-making under uncertainty: strategies that have to survive real costs and slippage, and models that have to generalize past the data they were trained on.",
-      "I care most about the parts people skip. My backtester is event-driven, so lookahead bias is structurally hard to introduce; it models commission, spread, and market impact, and it validates walk-forward so an in-sample number never gets mistaken for an edge. On the machine-learning side, I recently found and quantified a data-leakage flaw in a computer-vision project — a split that looked clean but inflated the reported accuracy — and rebuilt the evaluation to measure the honest number. Knowing when a good-looking result is lying to you is the skill I keep sharpening.",
-      "That instinct carried into my capstone, an LLM agent that can place trades. The interesting problem there wasn't getting it to work — it was making the safety properties hold when the model misbehaves. So the confirmation gate is enforced by the graph's topology rather than by asking the model nicely, permissions are code that raises rather than text that persuades, and the eval suite asserts the broker was never called instead of trusting that the agent said no.",
+      "I'm a Computer Science and Applied Mathematics student at the University of Maryland (class of 2028). I build backend and research systems, and the through-line is the same wherever I point it: figure out which property actually has to hold, make it hold by construction rather than by discipline, and then write the test that fails if anyone removes it.",
+      "The clearest example is a two-sided marketplace I built and deployed. Its payment path journals every money-moving call before the call is issued, because Stripe prunes idempotency keys after 24 hours and a retry past that window becomes a second real charge. Three of the defects I fixed there were invisible to a mocked test suite and only appeared against the live API. Money is a good teacher: the failure modes are specific, unforgiving, and entirely uninterested in whether the demo looked fine.",
+      "The same instinct shows up in research code, where the bugs are asymmetric. One that loses information gets noticed when the strategy stops working; one that adds information looks like a discovery, and nobody debugs a good result. So my research platform tries to falsify itself — a causality checker perturbs every observation after time t and asserts nothing before t moved, my backtester enforces no-lookahead in the engine rather than in strategy discipline, and its own demo wins in-sample and then loses out-of-sample. I also found and quantified a data-leakage flaw in a computer-vision project, where a split that passed the team's own check inflated the reported accuracy by about three points.",
+      "That carried into my capstone, an LLM agent that can place trades. The interesting problem wasn't getting it to work — it was making the safety property hold when the model misbehaves. The confirmation gate is enforced by the graph's topology rather than by asking the model nicely, permissions are code that raises rather than text that persuades, and the eval suite asserts the broker was never called instead of trusting that the agent said no.",
       "I grew up in Lagos, Nigeria, and I'm happiest where a clean mathematical idea meets a system that refuses to cooperate. I also mentor CS students through ColorStack and Alpha Lambda Delta — explaining an idea cleanly is the fastest way to find the hole in it.",
-      "If you're building systematic strategies and want someone who treats an out-of-sample loss as the most useful result in the room, I'd like to talk.",
+      "If you're building something where correctness outlives the demo — money that has to reconcile, a model that has to generalize, an agent that has to stay inside its limits — I'd like to talk.",
     ],
   },
 
   projects: [
+    {
+      name: "ToolBelt — Two-Sided Marketplace with a Real Money Path",
+      blurb:
+        "A gig marketplace built and deployed end to end: an 8,400-line FastAPI/PostgreSQL API and a 4,400-line TypeScript Expo client running on iOS, Android, and web, live on its own domain over TLS. It has no users — I built it to be correct, not to be operated. The interesting half is the money. Every money-moving Stripe call is journaled on a second connection before the call is issued — because Stripe prunes idempotency keys after 24 hours, and a retried refund past that window is not a retry, it is a second real charge. A double-entry ledger over authorize, capture, and payout balances to zero against live Stripe test mode, and the reconciliation sweeper is read-only by construction: a deny-by-default allowlist that raises on any mutating method.",
+      learned:
+        "Three of the defects I fixed were invisible to a mocked test suite — a capture that succeeded at Stripe while my transaction rolled back locally, a payout failure undoing a completed job, and idempotency-key poisoning. All three lived in the same gap: between telling a provider to move money and recording that you did. So I stopped fixing them one at a time and closed the gap instead.",
+      tech: ["FastAPI", "PostgreSQL", "TypeScript", "Stripe", "Docker", "React Native"],
+      image: "assets/img/proj-toolbelt.svg",
+      imageAlt:
+        "A journal row committing before an outbound payment call, with the reverse order — a retry past the 24-hour key window — shown becoming a second charge.",
+      links: {
+        live: "https://toolbelt.biz",
+        repo: "https://github.com/Dera219/toolbelt",
+        writeup: null,
+      },
+    },
     {
       name: "TradeDesk — Trading Agent with a Confirmation Gate",
       blurb:
