@@ -1,76 +1,100 @@
-/* Design tokens. Change values here, not in component styles. */
+/* Design tokens. Change values here, not in component styles.
+
+   The palette is warm on purpose. Almost every engineering portfolio is blue-black; ink and
+   brass reads like a bound notebook or an instrument face instead of a terminal, and the work
+   this page describes is closer to the former. */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: dark light;
 
-  /* Type scale — 1.25 ratio, fluid between mobile and desktop.
-     Ceilings are set high enough that the page keeps growing on 1440px+ displays instead of
-     freezing at laptop size — the old caps made a 1920px monitor look like a small window with
-     wide empty margins. Prose line length is still protected separately by --measure. */
-  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 1rem);
-  --step-0: clamp(1rem, 0.94rem + 0.25vw, 1.25rem);
-  --step-1: clamp(1.25rem, 1.16rem + 0.4vw, 1.6rem);
-  --step-2: clamp(1.56rem, 1.4rem + 0.7vw, 2.25rem);
-  --step-3: clamp(1.95rem, 1.7rem + 1.1vw, 3rem);
-  --step-4: clamp(2.44rem, 2rem + 2.2vw, 4.5rem);
+  /* ---- Type ------------------------------------------------------------------
+     Three families doing three jobs, which is the whole typographic idea here:
+     a serif states claims, a mono shows evidence, a grotesque carries prose. */
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* Page width. Steps up on larger displays (see the media queries below) so a big monitor
-     shows a bigger page, not the same column with more emptiness. */
-  --container: 68rem;
+  /* Fluid 1.25 scale. The display ceiling is deliberately large — the hero line is the
+     loudest thing on the page and should behave like a headline, not a heading. */
+  --step--2: clamp(0.69rem, 0.67rem + 0.1vw, 0.78rem);
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.95rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.15rem);
+  --step-1: clamp(1.25rem, 1.16rem + 0.4vw, 1.55rem);
+  --step-2: clamp(1.56rem, 1.4rem + 0.7vw, 2.1rem);
+  --step-3: clamp(1.95rem, 1.65rem + 1.3vw, 3.1rem);
+  --step-4: clamp(2.6rem, 1.9rem + 3.2vw, 5.2rem);
+  --step-5: clamp(3.2rem, 1.9rem + 5.6vw, 8rem);
 
-  --space-xs: 0.5rem;
+  --container: 74rem;
+  --measure: 62ch;
+
+  --space-2xs: 0.375rem;
+  --space-xs: 0.625rem;
   --space-s: 1rem;
-  --space-m: 1.5rem;
-  --space-l: 3rem;
+  --space-m: 1.75rem;
+  --space-l: 3.25rem;
   --space-xl: 6rem;
+  --space-2xl: 9rem;
 
-  --measure: 65ch;
-  --radius: 8px;
+  --radius: 3px;
+  --rule: 1px;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  /* ---- Dark: ink and brass (default) ---------------------------------------- */
+  --bg: #0c0a09;
+  --bg-deep: #070605;
+  --surface: #15110e;
+  --surface-2: #1d1815;
+  --text: #f4eee4;
+  --muted: #a1968a;
+  --faint: #6a6058;
+  --line: #2a2320;
+  --line-bright: #3b322c;
 
-  /* Light theme. Contrast checked against WCAG AA — verify again if you change these. */
-  --bg: #fbfbfa;
-  --surface: #ffffff;
-  --text: #16150f;
-  --text-muted: #5c5a52;
-  --border: #e3e1dc;
-  --accent: #2f5d50;
-  --accent-contrast: #ffffff;
-  --focus: #2f5d50;
+  --accent: #e3a24c;          /* brass — claims, emphasis, the drawn signal */
+  --accent-dim: #8a6329;
+  --verify: #74c79b;          /* something that was checked */
+  --fail: #e2704f;            /* the out-of-sample collapse */
+  --accent-contrast: #0c0a09;
+  --focus: #e3a24c;
+
+  --grain: 0.035;
 }
 
-/* Wider canvases get a wider page. Three steps rather than one so the jump is never jarring. */
-@media (min-width: 90rem) {
+/* Light is a paper theme, not an inverted dark one: warmer ground, ink text, darker brass so
+   the accent still passes contrast on a light field. */
+@media (prefers-color-scheme: light) {
   :root {
-    --container: 80rem;
-    --space-xl: 7rem;
+    --bg: #f5f0e6;
+    --bg-deep: #ebe4d6;
+    --surface: #fffcf6;
+    --surface-2: #f9f4ea;
+    --text: #17120e;
+    --muted: #635a50;
+    --faint: #8d8478;
+    --line: #ded4c2;
+    --line-bright: #c9bda7;
+
+    --accent: #8c530f;
+    --accent-dim: #b98a45;
+    --verify: #1f7a52;
+    --fail: #ab3d1c;
+    --accent-contrast: #fffcf6;
+    --focus: #8c530f;
+
+    --grain: 0.02;
   }
 }
 
-@media (min-width: 120rem) {
+@media (min-width: 100rem) {
   :root {
-    --container: 104rem;
-    --space-xl: 8rem;
+    --container: 86rem;
+    --space-2xl: 11rem;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #12120f;
-    --surface: #1a1a16;
-    --text: #f2f0ea;
-    --text-muted: #a3a09a;
-    --border: #2e2d28;
-    --accent: #7fbfa8;
-    --accent-contrast: #12120f;
-    --focus: #7fbfa8;
-  }
-}
-
-/* Honor the OS setting. Users who set this often do so because motion makes them ill —
-   treat it as a hard constraint, not a preference to design around. */
+/* Users who set this often do so because motion makes them ill. Treat it as a hard constraint,
+   not a preference to design around: the instruments below check it and render a single static
+   frame instead of animating. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

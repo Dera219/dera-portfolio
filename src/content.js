@@ -13,12 +13,22 @@ export const content = {
   },
 
   hero: {
-    tagline: "I build systems whose guarantees are structural, not hopeful.",
+    tagline: "I build systems whose guarantees are *structural, not hopeful*.",
     subtitle:
       "CS & Applied Mathematics at the University of Maryland. A deployed marketplace with a real money path, a research platform built to kill its own results, and an LLM agent that cannot execute an unconfirmed order — different domains, one habit: make the property hold by construction, then prove it does.",
     // Drop a photo at assets/img/portrait.jpg (or .png) and set this to its path — it appears
     // automatically, framed, beside the hero. Leave null and the layout centers the text cleanly.
     portrait: null,
+  },
+
+  // The full-bleed statement between the hero and the work.
+  thesis: {
+    label: "The through-line",
+    body: "A result that looks good is a claim, not a fact. My job is telling the two *apart*.",
+  },
+
+  contact: {
+    lead: "If correctness has to outlive the demo, *let's talk*.",
   },
 
   about: {
@@ -35,6 +45,14 @@ export const content = {
   projects: [
     {
       name: "ToolBelt — Two-Sided Marketplace with a Real Money Path",
+      key: "toolbelt",
+      thesis: "Record the intent before you move the money.",
+      metrics: [
+        ["api", "8,400 LOC"],
+        ["client", "4,400 LOC"],
+        ["ledger", "balances to 0"],
+        ["users", "none, by choice"],
+      ],
       blurb:
         "A gig marketplace built and deployed end to end: an 8,400-line FastAPI/PostgreSQL API and a 4,400-line TypeScript Expo client running on iOS, Android, and web, live on its own domain over TLS. It has no users — I built it to be correct, not to be operated. The interesting half is the money. Every money-moving Stripe call is journaled on a second connection before the call is issued — because Stripe prunes idempotency keys after 24 hours, and a retried refund past that window is not a retry, it is a second real charge. A double-entry ledger over authorize, capture, and payout balances to zero against live Stripe test mode, and the reconciliation sweeper is read-only by construction: a deny-by-default allowlist that raises on any mutating method.",
       learned:
@@ -51,6 +69,14 @@ export const content = {
     },
     {
       name: "TradeDesk — Trading Agent with a Confirmation Gate",
+      key: "tradedesk",
+      thesis: "The edge that would let it skip confirmation does not exist.",
+      metrics: [
+        ["scenarios", "18 adversarial"],
+        ["gate", "topological"],
+        ["authz", "raises, not asks"],
+        ["broker", "never called"],
+      ],
       blurb:
         "A conversational paper-trading agent where the safety property is the graph's shape, not a prompt. It classifies intent, answers from a self-authored corpus, quotes symbols, and places simulated orders — but proposing an order and filling one are separate turns, because no edge connects them. Authorization is Python decorators raising 403, not an instruction the model can be talked out of. 18 adversarial scenarios assert on behavior: the strongest check is that a spy recorded the broker was never called.",
       learned:
@@ -67,6 +93,14 @@ export const content = {
     },
     {
       name: "crucible — Cross-Sectional Research Platform",
+      key: "crucible",
+      thesis: "Perturb the future. If the past moves, the signal was cheating.",
+      metrics: [
+        ["tests", "408", "crucible-tests"],
+        ["bugs found green", "13"],
+        ["flattering", "12 of 13"],
+        ["mypy", "strict, clean"],
+      ],
       blurb:
         "A research platform for relative signals — panel data, a composable signal algebra, a vectorised backtester with square-root market impact, and validation built to kill results before I believe them. Its causality checker proves a signal cannot see the future: perturb every observation after time t, recompute, assert nothing before t moved. That catches full-sample normalisation — the lookahead bug that survives review because it looks like the textbook. I logged every defect found after the tests were already green: thirteen, and twelve made results look better than reality.",
       learned:
@@ -83,6 +117,14 @@ export const content = {
     },
     {
       name: "Apex — Event-Driven Backtesting Framework",
+      key: "apex",
+      thesis: "Its own demo loses money out-of-sample. That is the feature.",
+      metrics: [
+        ["tests", "189", "apex-tests"],
+        ["lookahead", "structural"],
+        ["costs", "modelled"],
+        ["out-of-sample", "loses"],
+      ],
       blurb:
         "A quantitative research framework built the way a fund would want it: an event loop that makes lookahead bias structurally hard to introduce, a cost model for commission, spread, and market impact, and walk-forward validation. Its own demo proves the point — a strategy that beats buy-and-hold in-sample loses out-of-sample, which is exactly the honesty the framework exists to enforce.",
       learned:
@@ -94,6 +136,14 @@ export const content = {
     },
     {
       name: "Nutrition5k — Data-Leakage Audit + CNN",
+      key: "nutrition",
+      thesis: "The split passed their check and leaked anyway.",
+      metrics: [
+        ["contaminated", "94.7%"],
+        ["inflation", "~3 points"],
+        ["clean split", "~74%"],
+        ["vs baseline", "2.2x"],
+      ],
       blurb:
         "A calorie classifier on food images — and an audit that changed how the whole project's numbers should be read. The team's split passed a dish-ID overlap check but leaked at the capture-session level; a controlled 5-seed, 2-architecture experiment showed that inflates the reported accuracy by ~3 points. On a clean session-grouped split my model reaches ~74%, 2.2× the baseline, honestly measured.",
       learned:
@@ -136,6 +186,73 @@ export const content = {
 };
 
 /**
+ * Every hard number on this page is a claim, and a claim you cannot check is decoration.
+ * Each entry below is attached to a figure in the copy; clicking that figure shows how the
+ * number was produced. If you change a number, change its audit in the same commit — a stale
+ * audit is worse than none, because it looks like evidence.
+ *
+ * `checked` is the date the command was last actually run, not the date it was written.
+ */
+export const audits = {
+  "crucible-tests": {
+    claim: "408 tests",
+    method: "pytest -q",
+    result: "408 passed in 3.34s",
+    source: "github.com/Dera219/crucible",
+    checked: "2026-09-07",
+  },
+  "crucible-bugs": {
+    claim: "13 defects found after the suite was already green, 12 of them flattering",
+    method: "Hand-kept defect log, one entry per bug found post-green",
+    result: "13 logged; 12 made results look better than reality",
+    source: "crucible/README.md",
+    checked: "2026-08-26",
+  },
+  "tradedesk-scenarios": {
+    claim: "18 adversarial scenarios",
+    method: "Count of Scenario(...) constructions in the eval suite",
+    result: "18",
+    source: "tradedesk/evals/scenarios.py",
+    checked: "2026-09-07",
+  },
+  "apex-tests": {
+    claim: "189 tests, no broker credentials present",
+    method: "pytest -q, with ALPACA_API_KEY unset",
+    result: "189 passed in 0.14s",
+    source: "github.com/Dera219/apex-trading-agent",
+    checked: "2026-09-07",
+  },
+  "toolbelt-loc": {
+    claim: "8,400-line API, 4,400-line client",
+    method: "wc -l over non-test sources in api/ and mobile/",
+    result: "8,389 Python · 4,407 TypeScript",
+    source: "github.com/Dera219/toolbelt",
+    checked: "2026-09-07",
+  },
+  "toolbelt-users": {
+    claim: "No users",
+    method: "Worker signup cannot complete on the live API — the Twilio trial tier forbids free-form message bodies",
+    result: "Stated plainly in the repo's own README, not just here",
+    source: "toolbelt/README.md",
+    checked: "2026-09-07",
+  },
+  "nutrition-inflation": {
+    claim: "Leakage inflates accuracy by ~3 points",
+    method: "5 seeds x 2 architectures, leaked split vs session-grouped split",
+    result: "~3 points, unanimous across all 10 runs",
+    source: "ai4all-ml-project/docs/session-leakage-nutrition5k.md",
+    checked: "2026-08-13",
+  },
+  "nutrition-clean": {
+    claim: "~74% on a clean split, 2.2x the majority baseline",
+    method: "Session-grouped split, my own model",
+    result: "~73-75% vs a 33% majority-class baseline",
+    source: "ai4all-ml-project/README.md",
+    checked: "2026-08-13",
+  },
+};
+
+/**
  * Editing notes.
  *
  * 1. Contact details on the page are email and LinkedIn only. Phone stays out of the markup —
@@ -145,7 +262,12 @@ export const content = {
  *    "5 seeds x 2 architectures". A figure a reader can verify against the linked repo carries
  *    more weight than one they can only take on faith.
  *
- * 3. Project images are decorative SVG motifs (assets/img/proj-*.svg), not screenshots — nothing
- *    here should read as real program output unless it is. To use a real figure, point a
- *    project's `image` at its path and keep it roughly 16:9.
+ * 3. Each project's `key` selects its live diagram in src/js/instruments.js. `imageAlt` is the
+ *    canvas's accessible description and is read aloud in place of the drawing, so describe the
+ *    mechanism, not the aesthetics. The `image` fields are leftovers from the previous static
+ *    SVG layout and are no longer read by anything.
+ *
+ * 4. `metrics` is a list of [label, value] pairs, optionally [label, value, auditKey] to make
+ *    the value itself pressable. Use the third form only for figures that never appear in the
+ *    prose — a number chipped in both places puts two identical buttons on one card.
  */
