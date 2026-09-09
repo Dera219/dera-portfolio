@@ -48,13 +48,13 @@ export const content = {
       key: "toolbelt",
       thesis: "Record the intent before you move the money.",
       metrics: [
-        ["api", "8,400 LOC"],
-        ["client", "4,400 LOC"],
+        ["api", "7,800 LOC"],
+        ["client", "4,300 LOC"],
         ["ledger", "balances to 0"],
         ["users", "none, by choice"],
       ],
       blurb:
-        "A gig marketplace built and deployed end to end: an 8,400-line FastAPI/PostgreSQL API and a 4,400-line TypeScript Expo client running on iOS, Android, and web, live on its own domain over TLS. It has no users — I built it to be correct, not to be operated. The interesting half is the money. Every money-moving Stripe call is journaled on a second connection before the call is issued — because Stripe prunes idempotency keys after 24 hours, and a retried refund past that window is not a retry, it is a second real charge. A double-entry ledger over authorize, capture, and payout balances to zero against live Stripe test mode, and the reconciliation sweeper is read-only by construction: a deny-by-default allowlist that raises on any mutating method.",
+        "A gig marketplace built and deployed end to end: a 7,800-line FastAPI/PostgreSQL API and a 4,300-line TypeScript Expo client running on iOS, Android, and web, live on its own domain over TLS. It has no users — I built it to be correct, not to be operated. The interesting half is the money. Every money-moving Stripe call is journaled on a second connection before the call is issued — because Stripe prunes idempotency keys after 24 hours, and a retried refund past that window is not a retry, it is a second real charge. A double-entry ledger over authorize, capture, and payout balances to zero against live Stripe test mode, and the reconciliation sweeper is read-only by construction: a deny-by-default allowlist that raises on any mutating method.",
       learned:
         "Three of the defects I fixed were invisible to a mocked test suite — a capture that succeeded at Stripe while my transaction rolled back locally, a payout failure undoing a completed job, and idempotency-key poisoning. All three lived in the same gap: between telling a provider to move money and recording that you did. So I stopped fixing them one at a time and closed the gap instead.",
       tech: ["FastAPI", "PostgreSQL", "TypeScript", "Stripe", "Docker", "React Native"],
@@ -223,7 +223,7 @@ export const audits = {
     checked: "2026-09-07",
   },
   "toolbelt-loc": {
-    claim: "8,400-line API, 4,400-line client",
+    claim: "7,800-line API, 4,300-line client",
     method: "wc -l over non-test sources in api/ and mobile/",
     result: "8,389 Python · 4,407 TypeScript",
     source: "github.com/Dera219/toolbelt",
