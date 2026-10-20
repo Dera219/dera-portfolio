@@ -92,11 +92,34 @@ export const content = {
       },
     },
     {
+      name: "aep-verify — Evidence Verifier for AI-Agent Purchases",
+      key: "aep",
+      thesis: "A signature proves who signed. It does not prove when.",
+      metrics: [
+        ["vectors", "55 of 55"],
+        ["attacks", "22"],
+        ["missed, key only", "5"],
+        ["with head log", "2"],
+      ],
+      blurb:
+        "When an AI agent buys something and the purchase is disputed, the merchant's whole defense is the evidence it kept. The A-Comm Evidence Protocol is the most complete open draft for what that evidence should look like, so I built an independent verifier for it from the specification text alone. It passes all 55 published conformance vectors under 250 tests, with mypy strict. Then I built the other side too, a producer that refuses to emit anything the draft forbids, and used it to make one disputed $55 purchase and attack the exported bundle 22 ways. A recipient holding only the merchant's key refuses 15 and flags 2. Five get through, and two of those produce files byte-for-byte identical to the honest bundle, so no verifier that reads only the bundle can ever catch them. Logging the chain head every time an event arrives cuts the misses to two. I filed nine issues on the draft upstream.",
+      learned:
+        "The attacks that got through were not bugs in my code or in anyone's. They were properties the format cannot express: a signature carries no time, and nothing commits to where the chain ends. Some guarantees have to live outside the artifact, in a record written as events happen. ToolBelt's payment journal taught me the same lesson from the other side.",
+      tech: ["Python", "Ed25519", "SHA-256", "RFC 8785", "mypy strict"],
+      imageAlt:
+        "A chain of signed events whose last event is cut away. With only the merchant's key the shortened chain still verifies. With a head log written as each event arrives, the log points past the cut and the truncation is caught.",
+      links: {
+        repo: "https://github.com/Dera219/aep-verify",
+        writeup: "https://github.com/Dera219/aep-verify/blob/main/README.md",
+        live: null,
+      },
+    },
+    {
       name: "crucible — Cross-Sectional Research Platform",
       key: "crucible",
       thesis: "Perturb the future. If the past moves, the signal was cheating.",
       metrics: [
-        ["tests", "408", "crucible-tests"],
+        ["tests", "410", "crucible-tests"],
         ["bugs found green", "13"],
         ["flattering", "12 of 13"],
         ["mypy", "strict, clean"],
@@ -195,11 +218,39 @@ export const content = {
  */
 export const audits = {
   "crucible-tests": {
-    claim: "408 tests",
+    claim: "410 tests",
     method: "pytest -q",
-    result: "408 passed in 3.34s",
+    result: "410 passed in 3.41s",
     source: "github.com/Dera219/crucible",
-    checked: "2026-09-07",
+    checked: "2026-10-19",
+  },
+  "aep-vectors": {
+    claim: "Passes all 55 published conformance vectors",
+    method: "aep-verify vectors, against the draft's own vectors vendored under vectors/v1.0.3-rc.2/",
+    result: "55 passed, 0 failed, 4 notes (the notes are spec inconsistencies, filed upstream)",
+    source: "github.com/Dera219/aep-verify (CONFORMANCE.md)",
+    checked: "2026-10-19",
+  },
+  "aep-tests": {
+    claim: "250 tests",
+    method: "pytest -q",
+    result: "250 passed in 1.97s",
+    source: "github.com/Dera219/aep-verify",
+    checked: "2026-10-19",
+  },
+  "aep-attacks": {
+    claim: "22 attacks; key only misses 5, a head log misses 2",
+    method: "aep-verify demo: one $55 purchase, 22 edited copies, three recipients re-verify each",
+    result: "key only 15 refused / 2 flagged / 5 missed; anchored seal misses 4; head log misses 2. Two forgeries hash identical to the honest bundle",
+    source: "aep-verify/aep-demo/REPORT.md (deterministic, regenerate with aep-verify demo)",
+    checked: "2026-10-19",
+  },
+  "aep-issues": {
+    claim: "Nine issues filed on the draft upstream",
+    method: "gh issue list on A-Comm-Tech/a-comm-evidence-protocol, author Dera219",
+    result: "9 issues, #96 to #104",
+    source: "github.com/A-Comm-Tech/a-comm-evidence-protocol/issues",
+    checked: "2026-10-19",
   },
   "crucible-bugs": {
     claim: "13 defects found after the suite was already green, 12 of them flattering",

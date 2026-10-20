@@ -530,12 +530,174 @@ function leakage(ctx, w, h, t, c, opts) {
   ctx.fillText(caption, leftMin, h * 0.96);
 }
 
+/* ---------------------------------------------------------------------------
+   6. Cut the tail.
+
+   A purchase is a chain of signed events. Cut the last one off (here, the return) and a
+   recipient holding only the merchant's key still sees a valid chain, because nothing commits
+   to where the chain ends. Write the chain head to a log as each event arrives, and the log
+   points past the cut, so the truncation is caught. Both are shown, in turn.
+   ------------------------------------------------------------------------ */
+function chainHead(ctx, w, h, t, c, opts) {
+  const cycle = 12;
+  const p = REDUCED.matches ? 0.93 : (t % cycle) / cycle;
+  const withLog = p >= 0.5;
+  const local = (withLog ? p - 0.5 : p) / 0.5;
+  const labels = ["offer", "auth", "seal", "ship", "return"];
+  const N = labels.length;
+
+  const fs = Math.max(9, Math.round(h * 0.062));
+  ctx.font = `500 ${fs}px ${opts.mono}`;
+  const gutter = Math.max(ctx.measureText("chain").width, ctx.measureText("log").width) + 18;
+  const right = w - 14;
+  const slot = (right - gutter) / N;
+
+  // Box text shrinks until the widest label fits its slot, so a narrow panel never overlaps.
+  let boxFs = fs;
+  ctx.font = `500 ${boxFs}px ${opts.mono}`;
+  const widest = () => Math.max(...labels.map((l) => ctx.measureText(l).width));
+  while (widest() + 8 > slot * 0.84 && boxFs > 7) {
+    boxFs -= 1;
+    ctx.font = `500 ${boxFs}px ${opts.mono}`;
+  }
+  const bw = Math.min(widest() + 10, slot * 0.84);
+  const bh = Math.max(15, h * 0.13);
+  const laneA = h * 0.44;
+  const laneB = h * 0.8;
+  const cx = (i) => gutter + slot * i + slot / 2;
+
+  ctx.font = `500 ${fs}px ${opts.mono}`;
+  [[laneA, "chain"], [laneB, "log"]].forEach(([ly, label]) => {
+    ctx.strokeStyle = c.line;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(gutter, ly);
+    ctx.lineTo(right, ly);
+    ctx.stroke();
+    ctx.fillStyle = c.faint;
+    ctx.textAlign = "right";
+    ctx.fillText(label, gutter - 8, ly + fs * 0.35);
+  });
+
+  // Events append one after another, then the tail is cut, then the verdict lands.
+  const appear = (i) => Math.max(0, Math.min(1, (local - (i / N) * 0.35) * 10));
+  const cut = local > 0.45;
+  const verdict = local > 0.55;
+  const tint = withLog ? c.verify : c.fail;
+
+  // Caption names the setup until the cut lands, then states the verdict in its tint. Same
+  // fitting rule as the journal panel: shorter wording first, smaller type only as a last resort.
+  const options = !verdict
+    ? withLog
+      ? ["merchant key + head log", "key + head log", "head log"]
+      : ["merchant key only", "key only"]
+    : withLog
+      ? ["head log catches the cut", "log catches it", "caught"]
+      : ["tail cut, chain still verifies", "tail cut: still valid", "cut = valid"];
+  const room = right - gutter;
+  let caption = options[options.length - 1];
+  for (const candidate of options) {
+    if (ctx.measureText(candidate).width <= room) {
+      caption = candidate;
+      break;
+    }
+  }
+  let capFs = fs;
+  while (ctx.measureText(caption).width > room && capFs > 7) {
+    capFs -= 1;
+    ctx.font = `500 ${capFs}px ${opts.mono}`;
+  }
+  ctx.fillStyle = verdict ? tint : c.muted;
+  ctx.textAlign = "left";
+  ctx.fillText(caption, gutter, h * 0.14);
+
+  // Hash links between consecutive events.
+  for (let i = 0; i < N - 1; i++) {
+    const a = appear(i + 1);
+    if (a <= 0) continue;
+    const x0 = cx(i) + bw / 2 + 2;
+    const x1 = cx(i + 1) - bw / 2 - 2;
+    const severed = cut && i === N - 2;
+    ctx.save();
+    if (severed) ctx.setLineDash([2, 3]);
+    ctx.strokeStyle = severed ? c.fail : c.faint;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(x0, laneA);
+    ctx.lineTo(x0 + (x1 - x0) * a, laneA);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  for (let i = 0; i < N; i++) {
+    const a = appear(i);
+    if (a <= 0) continue;
+    const x = cx(i) - bw / 2;
+    const y = laneA - bh / 2;
+    const isCut = cut && i === N - 1;
+
+    ctx.save();
+    ctx.globalAlpha = a;
+    if (isCut) ctx.setLineDash([3, 3]);
+    ctx.fillStyle = c.surface;
+    ctx.fillRect(x, y, bw, bh);
+    ctx.strokeStyle = isCut ? c.fail : c.muted;
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(x, y, bw, bh);
+    ctx.font = `500 ${boxFs}px ${opts.mono}`;
+    ctx.fillStyle = isCut ? c.fail : c.text;
+    ctx.textAlign = "center";
+    ctx.fillText(labels[i], cx(i), laneA + boxFs * 0.35);
+    if (isCut) {
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(x, y + bh);
+      ctx.lineTo(x + bw, y);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // The head log records each event as it arrives, so it still knows where the chain ended.
+    if (withLog) {
+      ctx.save();
+      ctx.globalAlpha = a;
+      ctx.setLineDash([2, 3]);
+      ctx.strokeStyle = c.lineBright;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cx(i), laneA + bh / 2 + 2);
+      ctx.lineTo(cx(i), laneB - 5);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = c.verify;
+      ctx.beginPath();
+      ctx.arc(cx(i), laneB, 3.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  if (verdict) {
+    ctx.font = `500 ${fs}px ${opts.mono}`;
+    if (withLog) {
+      ctx.fillStyle = c.verify;
+      ctx.textAlign = "right";
+      ctx.fillText("log head != chain end", right, laneB + bh * 1.2);
+    } else {
+      ctx.fillStyle = c.fail;
+      ctx.textAlign = "center";
+      ctx.fillText("valid", cx(N - 2), laneA - bh * 0.95);
+    }
+  }
+}
+
 const RENDERERS = {
   apex: walkForward,
   crucible: causality,
   tradedesk: absentEdge,
   toolbelt: journalOrder,
   nutrition: leakage,
+  aep: chainHead,
   hero: walkForward,
 };
 

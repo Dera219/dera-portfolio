@@ -24,10 +24,14 @@ const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (ch) => ESCAPES[ch]);
 
 /** Phrase in the copy -> key in `audits`. First match only, longest phrases first. */
 const AUDIT_PHRASES = [
-  ["8,400-line", "toolbelt-loc"],
+  ["7,800-line", "toolbelt-loc"],
   ["It has no users", "toolbelt-users"],
   ["18 adversarial scenarios", "tradedesk-scenarios"],
-  ["408 tests", "crucible-tests"],
+  ["55 published conformance vectors", "aep-vectors"],
+  ["250 tests", "aep-tests"],
+  ["22 ways", "aep-attacks"],
+  ["nine issues", "aep-issues"],
+  ["410 tests", "crucible-tests"],
   ["thirteen", "crucible-bugs"],
   ["~3 points", "nutrition-inflation"],
   ["~74%", "nutrition-clean"],
