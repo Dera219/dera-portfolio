@@ -2,7 +2,7 @@
 
 Personal site of Chidera Onyebu: https://dera219.github.io/dera-portfolio/
 
-One static `index.html` with inline CSS. No JavaScript, no build step, no external fonts.
+One static `index.html` with inline CSS, themed as an order book: every claim is a contract that settles against its evidence (HTML <details>, no JavaScript). No build step, no external fonts.
 Light and dark themes follow the system setting.
 
 Every number on the page matches the resumes in `~/Grind/resume` and passes `audit.py`'s banned-claims list.

@@ -4,164 +4,304 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chidera Onyebu</title>
-<meta name="description" content="Chidera Onyebu. CS and Applied Math at the University of Maryland. Trading systems, research infrastructure, and verification.">
+<meta name="description" content="Chidera Onyebu. CS and Applied Math at the University of Maryland. Trading systems, research infrastructure, and verification. Every claim on this page settles against its evidence.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Chidera Onyebu">
-<meta property="og:description" content="CS and Applied Math at UMD. Trading systems, research infrastructure, and verification. Closed 5th of 1,969 in Susquehanna's Predictions Cup.">
+<meta property="og:description" content="CS and Applied Math at UMD. Trading systems and verification. Closed 5th of 1,969 in Susquehanna's Predictions Cup.">
 <meta property="og:url" content="https://dera219.github.io/dera-portfolio/">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark light">
 <style>
 :root {
-  --bg: #ffffff;
-  --fg: #111111;
-  --muted: #6b6b6b;
-  --rule: #e6e6e6;
-  --link: #1a4fd6;
+  --bg: #0b0d10;
+  --panel: #11151a;
+  --fg: #e6e8eb;
+  --muted: #8a929c;
+  --rule: #1f252d;
+  --up: #3ddc84;
+  --down: #ff5c5c;
+  --amber: #f5b942;
+  --link: #7fb2ff;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --bg: #0f0f10;
-    --fg: #e8e8e6;
-    --muted: #9a9a96;
-    --rule: #262628;
-    --link: #8fb0ff;
+    --bg: #fbfbfa;
+    --panel: #f2f3f1;
+    --fg: #15181c;
+    --muted: #616a74;
+    --rule: #e1e3e0;
+    --up: #0f8a4a;
+    --down: #c62828;
+    --amber: #a86b00;
+    --link: #1a4fd6;
   }
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font: 16px/1.6 var(--sans);
-}
-main { max-width: 680px; margin: 0 auto; padding: 56px 16px 72px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.6 var(--sans); }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
-h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; font-weight: 600; letter-spacing: -0.01em; }
-h2 {
-  font: 500 12px/1 var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin: 44px 0 14px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--rule);
+.mono { font-family: var(--mono); }
+.up { color: var(--up); }
+.down { color: var(--down); }
+.amber { color: var(--amber); }
+.muted { color: var(--muted); }
+
+/* ticker tape */
+.tape { border-bottom: 1px solid var(--rule); background: var(--panel); overflow: hidden; white-space: nowrap; font: 12px/32px var(--mono); }
+.tape-track { display: inline-block; animation: tape 48s linear infinite; }
+.tape-track > span { margin-right: 36px; }
+.tape:hover .tape-track { animation-play-state: paused; }
+@keyframes tape { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .tape-track { animation: none; padding-left: 16px; }
+  .tape-dup { display: none; }
 }
-p { margin: 0 0 12px; }
-.sub { color: var(--muted); margin: 0 0 14px; }
-.links { font: 14px/1.6 var(--mono); }
-.links a { margin-right: 16px; white-space: nowrap; }
-ul { list-style: none; margin: 0; padding: 0; }
-li { margin: 0 0 22px; }
-.row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.name { font-weight: 600; }
-.meta { font: 13px/1.5 var(--mono); color: var(--muted); }
-.desc { margin: 4px 0 0; }
-.facts { font: 13px/1.5 var(--mono); color: var(--muted); margin-top: 4px; }
-.facts a { margin-left: 2px; }
-.compact li { margin-bottom: 8px; }
-footer { margin-top: 48px; font: 13px/1.6 var(--mono); color: var(--muted); }
+
+main { max-width: 760px; margin: 0 auto; padding: 40px 16px 72px; }
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+h1 { font: 600 24px/1.2 var(--mono); letter-spacing: 0.02em; margin: 0; }
+.desk { font: 12px/1.6 var(--mono); color: var(--muted); margin: 4px 0 0; }
+.links { font: 13px/1.6 var(--mono); }
+.links a { margin-left: 14px; white-space: nowrap; }
+.links a:first-child { margin-left: 0; }
+.lede { margin: 22px 0 6px; max-width: 640px; }
+.rules { font: 12px/1.6 var(--mono); color: var(--muted); margin: 0 0 8px; }
+
+h2 { font: 500 12px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 40px 0 0; padding-bottom: 8px; border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; }
+
+/* order book rows */
+.book { font-family: var(--mono); }
+.cols, summary { display: grid; grid-template-columns: 120px 1fr 92px 96px; gap: 12px; align-items: baseline; }
+.cols { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; padding: 10px 0 6px; border-bottom: 1px dashed var(--rule); }
+details { border-bottom: 1px solid var(--rule); }
+summary { list-style: none; cursor: pointer; padding: 12px 0; font-size: 13px; }
+summary::-webkit-details-marker { display: none; }
+summary:hover { background: var(--panel); }
+summary:focus-visible { outline: 1px solid var(--link); outline-offset: 2px; }
+.sym { font-weight: 600; }
+.px { text-align: right; }
+.act { text-align: right; color: var(--link); }
+.act::before { content: "[settle]"; }
+details[open] .act::before { content: "[settled]"; color: var(--up); }
+.open .act::before { content: "[watch]"; color: var(--amber); }
+.open[open] .act::before { content: "[open]"; color: var(--amber); }
+.evidence { padding: 4px 0 16px; font: 14px/1.6 var(--sans); }
+.evidence p { margin: 0 0 8px; }
+.evidence dl { margin: 8px 0 0; display: grid; grid-template-columns: 96px 1fr; gap: 2px 12px; font: 12px/1.6 var(--mono); }
+.evidence dt { color: var(--muted); }
+.evidence dd { margin: 0; }
+
+/* plain lists */
+.list { list-style: none; margin: 0; padding: 0; }
+.list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+.list .r { font: 12px/1.6 var(--mono); color: var(--muted); }
+.list .note { flex-basis: 100%; color: var(--muted); font-size: 14px; margin-top: -2px; }
+footer { margin-top: 44px; font: 12px/1.7 var(--mono); color: var(--muted); }
+
+@media (max-width: 560px) {
+  .cols { display: none; }
+  summary { grid-template-columns: 1fr auto; row-gap: 2px; }
+  summary .claim { grid-column: 1 / -1; order: 3; color: var(--fg); }
+  summary .px { display: none; }
+  .evidence dl { grid-template-columns: 80px 1fr; }
+}
 </style>
 </head>
 <body>
+
+<div class="tape" aria-label="Ticker">
+  <div class="tape-track mono">
+    <span><b>CUP</b> 5/1969 <span class="up">▲</span></span>
+    <span><b>TESTS</b> 2,016 <span class="up">▲</span></span>
+    <span><b>CRUCIBLE</b> 9/9 KILLED <span class="down">▼</span></span>
+    <span><b>AEP</b> 3 GAPS CONFIRMED <span class="up">▲</span></span>
+    <span><b>TRADEDESK</b> 0 UNAUTHORIZED <span class="up">▲</span></span>
+    <span><b>APEX</b> OOS -2.84%/FOLD <span class="down">▼</span></span>
+    <span><b>LEAK</b> 94.7% CAUGHT <span class="up">▲</span></span>
+    <span><b>BDB27</b> OPEN <span class="amber">●</span></span>
+    <span><b>GPA</b> 3.5</span>
+    <span class="tape-dup" aria-hidden="true"><b>CUP</b> 5/1969 <span class="up">▲</span></span>
+    <span class="tape-dup" aria-hidden="true"><b>TESTS</b> 2,016 <span class="up">▲</span></span>
+    <span class="tape-dup" aria-hidden="true"><b>CRUCIBLE</b> 9/9 KILLED <span class="down">▼</span></span>
+    <span class="tape-dup" aria-hidden="true"><b>AEP</b> 3 GAPS CONFIRMED <span class="up">▲</span></span>
+    <span class="tape-dup" aria-hidden="true"><b>TRADEDESK</b> 0 UNAUTHORIZED <span class="up">▲</span></span>
+    <span class="tape-dup" aria-hidden="true"><b>APEX</b> OOS -2.84%/FOLD <span class="down">▼</span></span>
+    <span class="tape-dup" aria-hidden="true"><b>LEAK</b> 94.7% CAUGHT <span class="up">▲</span></span>
+    <span class="tape-dup" aria-hidden="true"><b>BDB27</b> OPEN <span class="amber">●</span></span>
+    <span class="tape-dup" aria-hidden="true"><b>GPA</b> 3.5</span>
+  </div>
+</div>
+
 <main>
 
 <header>
-  <h1>Chidera Onyebu</h1>
-  <p class="sub">CS + Applied Math at the University of Maryland, class of 2028.</p>
-  <p>I build trading systems and the infrastructure that tests them: pricing for prediction markets, research stacks built to kill their own results, and agents whose safety holds by construction.</p>
-  <p class="links">
-    <a href="https://github.com/Dera219">github</a>
-    <a href="https://www.linkedin.com/in/chideraonyebu">linkedin</a>
-    <a href="mailto:conyebu@terpmail.umd.edu">email</a>
-    <a href="assets/Chidera-Onyebu-Resume.pdf">resume.pdf</a>
-  </p>
+  <div class="head">
+    <div>
+      <h1>CHIDERA ONYEBU</h1>
+      <p class="desk">CS + APPLIED MATH · UNIVERSITY OF MARYLAND · CLASS OF 2028</p>
+    </div>
+    <p class="links">
+      <a href="https://github.com/Dera219">github</a>
+      <a href="https://www.linkedin.com/in/chideraonyebu">linkedin</a>
+      <a href="mailto:conyebu@terpmail.umd.edu">email</a>
+      <a href="assets/Chidera-Onyebu-Resume.pdf">resume.pdf</a>
+    </p>
+  </div>
+  <p class="lede">I build trading systems and the infrastructure that tests them. A result that looks good is a claim, not a fact, so every claim on this page is a contract. Settle any of them against the evidence.</p>
+  <p class="rules">tap a row to settle it · price 1.00 = settled YES</p>
 </header>
 
 <section>
-  <h2>Work</h2>
-  <ul>
-    <li>
-      <div class="row"><span class="name">cupbot</span><span class="meta">2026 · Python, NumPy</span></div>
-      <p class="desc">API trading bot for Susquehanna's month-long Predictions Cup. Priced 237 binary midterm contracts against Kalshi and Polymarket and modeled correlated outcomes with a one-factor Gaussian copula. Closed 5th of 1,969 entrants.</p>
-      <div class="facts">839 tests · <a href="https://www.linkedin.com/feed/update/urn:li:activity:7527016838375849984/">post</a></div>
-    </li>
-    <li>
-      <div class="row"><span class="name">crucible</span><span class="meta">2026 · Python, NumPy, polars, CRSP</span></div>
-      <p class="desc">Cross-sectional equity research stack over 23.1M rows of CRSP daily data. A causality prover perturbs every observation after t and asserts nothing at or before t moved. Nine hypotheses, each with a stated mechanism, all nine killed by Bonferroni bars over a trial ledger.</p>
-      <div class="facts">410 tests · <a href="https://github.com/Dera219/crucible">code</a></div>
-    </li>
-    <li>
-      <div class="row"><span class="name">aep-verify</span><span class="meta">2026 · Python, Ed25519, RFC 8785</span></div>
-      <p class="desc">Independent verifier for the A-Comm Evidence Protocol, an open draft for proving what an AI agent bought. Built from the spec and passes all 55 conformance checks. Attacked a test purchase 22 ways and filed 9 spec issues upstream, three gaps confirmed by an editor.</p>
-      <div class="facts">285 tests · <a href="https://github.com/Dera219/aep-verify">code</a></div>
-    </li>
-    <li>
-      <div class="row"><span class="name">TradeDesk</span><span class="meta">2026 · Python, LangGraph, FastAPI, MCP</span></div>
-      <p class="desc">LLM paper-trading agent with a structural confirmation gate: the compiled state graph has no trade-to-confirmation edge, and a test asserts its absence. 18 of 18 adversarial evals checked at the broker, 0 unauthorized executions. Demoed live at Discover ServiceNow.</p>
-      <div class="facts">293 tests · <a href="https://github.com/Dera219/tradedesk">code</a></div>
-    </li>
-    <li>
-      <div class="row"><span class="name">Apex</span><span class="meta">2026 · Python</span></div>
-      <p class="desc">Event-driven backtester that enforces no-lookahead in the engine: a signal on bar t fills at bar t+1's open. Its own demo refutes its strategy, beating buy-and-hold in-sample and losing 2.84% a fold out-of-sample.</p>
-      <div class="facts">189 tests · <a href="https://github.com/Dera219/apex-trading-agent">code</a></div>
-    </li>
-    <li>
-      <div class="row"><span class="name">ToolBelt</span><span class="meta">2026 · FastAPI, PostgreSQL, TypeScript, Stripe</span></div>
-      <p class="desc">Two-sided marketplace: a 7,800-line FastAPI/PostgreSQL API and a 4,300-line TypeScript client for Android and web. Every money-moving call is journaled before it is issued, and a double-entry ledger balanced to zero across authorize, capture, and payout in Stripe test mode. Hosting retired in September 2026.</p>
-      <div class="facts"><a href="https://github.com/Dera219/toolbelt">code</a></div>
-    </li>
-    <li>
-      <div class="row"><span class="name">Nutrition5k leakage audit</span><span class="meta">2026 · PyTorch</span></div>
-      <p class="desc">Found a capture-session leak in a team's data split: 94.7% of test dishes shared a session with a training dish, inflating accuracy 2 to 3 points in controlled runs across 5 seeds and 2 architectures.</p>
-      <div class="facts"><a href="https://github.com/Dera219/ai4all-ml-project">code</a></div>
-    </li>
-    <li>
-      <div class="row"><span class="name">Systems coursework</span><span class="meta">2025-2026 · C, OCaml, Rust</span></div>
-      <p class="desc">A UNIX shell executor in C (fork/exec, pipes, dup2 redirection), a compiler toolchain for a C subset in OCaml with a static type checker, and three garbage collectors in Rust.</p>
-    </li>
+  <h2><span>Contracts</span><span>settled</span></h2>
+  <div class="book">
+    <div class="cols"><span>CONTRACT</span><span>CLAIM</span><span class="px">PRICE</span><span></span></div>
+
+    <details>
+      <summary><span class="sym">CUPBOT</span><span class="claim">Closed 5th of 1,969 in SIG's Predictions Cup</span><span class="px up">1.00 ▲</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>API trading bot for Susquehanna's month-long, play-money Predictions Cup on 237 binary midterm contracts. It priced each contract against Kalshi and Polymarket and modeled correlated outcomes with a one-factor Gaussian copula.</p>
+        <dl>
+          <dt>stack</dt><dd>Python, NumPy</dd>
+          <dt>tests</dt><dd>839</dd>
+          <dt>source</dt><dd><a href="https://www.linkedin.com/feed/update/urn:li:activity:7527016838375849984/">final leaderboard post</a></dd>
+          <dt>settled</dt><dd>Nov 2026</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="sym">CRUCIBLE</span><span class="claim">Nine hypotheses tested, nine killed</span><span class="px up">1.00 ▲</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>Cross-sectional equity research stack over 23.1M rows of CRSP daily data. A causality prover perturbs every observation after t and asserts nothing at or before t moved. Each hypothesis got a stated economic mechanism, and all nine died against Bonferroni bars over a trial ledger.</p>
+        <dl>
+          <dt>stack</dt><dd>Python, NumPy, polars, CRSP</dd>
+          <dt>tests</dt><dd>410</dd>
+          <dt>source</dt><dd><a href="https://github.com/Dera219/crucible">github.com/Dera219/crucible</a></dd>
+          <dt>settled</dt><dd>Nov 2026</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="sym">AEP-VERIFY</span><span class="claim">Three spec gaps confirmed by an editor</span><span class="px up">1.00 ▲</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>Independent verifier for the A-Comm Evidence Protocol, an open draft for proving what an AI agent bought. Built from the spec, it passes all 55 conformance checks. I attacked a test purchase 22 ways and filed 9 spec issues upstream.</p>
+        <dl>
+          <dt>stack</dt><dd>Python, Ed25519, RFC 8785</dd>
+          <dt>tests</dt><dd>285</dd>
+          <dt>source</dt><dd><a href="https://github.com/Dera219/aep-verify">github.com/Dera219/aep-verify</a></dd>
+          <dt>settled</dt><dd>Nov 2026</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="sym">TRADEDESK</span><span class="claim">0 unauthorized orders in 18 attacks</span><span class="px up">1.00 ▲</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>LLM paper-trading agent with a structural confirmation gate: the compiled state graph has no trade-to-confirmation edge, and a test asserts its absence. All 18 adversarial evals were checked at the broker. Demoed live at Discover ServiceNow.</p>
+        <dl>
+          <dt>stack</dt><dd>Python, LangGraph, FastAPI, MCP</dd>
+          <dt>tests</dt><dd>293</dd>
+          <dt>source</dt><dd><a href="https://github.com/Dera219/tradedesk">github.com/Dera219/tradedesk</a></dd>
+          <dt>settled</dt><dd>Aug 2026</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="sym">APEX</span><span class="claim">Its own demo strategy loses out of sample</span><span class="px up">1.00 ▲</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>Event-driven backtester that enforces no-lookahead in the engine: a signal on bar t fills at bar t+1's open. The demo beats buy-and-hold in-sample and loses 2.84% a fold out-of-sample, and I kept it that way, because catching that is the framework's job.</p>
+        <dl>
+          <dt>stack</dt><dd>Python</dd>
+          <dt>tests</dt><dd>189</dd>
+          <dt>source</dt><dd><a href="https://github.com/Dera219/apex-trading-agent">github.com/Dera219/apex-trading-agent</a></dd>
+          <dt>settled</dt><dd>Aug 2026</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="sym">TOOLBELT</span><span class="claim">Ledger balanced to zero through payout</span><span class="px up">1.00 ▲</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>Two-sided marketplace: a 7,800-line FastAPI/PostgreSQL API and a 4,300-line TypeScript client for Android and web. Every money-moving call is journaled before it is issued, and the double-entry ledger balanced to zero across authorize, capture, and payout in Stripe test mode. Hosting retired in September 2026.</p>
+        <dl>
+          <dt>stack</dt><dd>FastAPI, PostgreSQL, TypeScript, Stripe</dd>
+          <dt>source</dt><dd><a href="https://github.com/Dera219/toolbelt">github.com/Dera219/toolbelt</a></dd>
+          <dt>settled</dt><dd>Sep 2026</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="sym">LEAK-AUDIT</span><span class="claim">94.7% of a team's test set was leaked</span><span class="px up">1.00 ▲</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>Found a capture-session leak in a team's Nutrition5k split: 94.7% of test dishes shared a session with a training dish, inflating accuracy 2 to 3 points in controlled runs across 5 seeds and 2 architectures.</p>
+        <dl>
+          <dt>stack</dt><dd>PyTorch</dd>
+          <dt>source</dt><dd><a href="https://github.com/Dera219/ai4all-ml-project">github.com/Dera219/ai4all-ml-project</a></dd>
+          <dt>settled</dt><dd>Aug 2026</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="sym">SYSTEMS</span><span class="claim">A shell, a compiler, three garbage collectors</span><span class="px up">1.00 ▲</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>Coursework, kept off GitHub: a UNIX shell executor in C (fork/exec, pipes, dup2 redirection), a compiler toolchain for a C subset in OCaml with a static type checker, and three garbage collectors in Rust.</p>
+        <dl>
+          <dt>stack</dt><dd>C, OCaml, Rust</dd>
+          <dt>settled</dt><dd>2025-2026</dd>
+        </dl>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section>
+  <h2><span>Open contracts</span><span>not yet settled</span></h2>
+  <div class="book">
+    <details class="open">
+      <summary><span class="sym">BDB27</span><span class="claim">NFL Big Data Bowl 2027, University Track</span><span class="px amber">open ●</span><span class="act"></span></summary>
+      <div class="evidence">
+        <p>Entry submitted in November 2026. Results come out in 2027.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section>
+  <h2><span>Track record</span><span>honors</span></h2>
+  <ul class="list">
+    <li><span>Susquehanna Predictions Cup, 2026 midterms</span><span class="r">5th of 1,969</span></li>
+    <li><span>Nigerian National Mathematics Olympiad</span><span class="r">3x gold</span></li>
+    <li><span>Rotary Mathematics Competition, 2024</span><span class="r">1st place, senior</span></li>
   </ul>
 </section>
 
 <section>
-  <h2>Competitions and honors</h2>
-  <ul class="compact">
-    <li><div class="row"><span>Susquehanna Predictions Cup, 2026 midterms</span><span class="meta">5th of 1,969</span></div></li>
-    <li><div class="row"><span>NFL Big Data Bowl 2027, University Track</span><span class="meta">entry submitted</span></div></li>
-    <li><div class="row"><span>Nigerian National Mathematics Olympiad</span><span class="meta">3x gold medalist</span></div></li>
-    <li><div class="row"><span>Rotary Mathematics Competition, 2024</span><span class="meta">1st place, senior</span></div></li>
+  <h2><span>Desks</span><span>experience</span></h2>
+  <ul class="list">
+    <li><span><b>ServiceNow</b> · Capstone Engineer, AI.Accelerate FY26 (external program)</span><span class="r">Jun-Aug 2026</span><span class="note">Built TradeDesk and demoed it live at Discover ServiceNow.</span></li>
+    <li><span><b>AI4ALL Ignite</b> · Machine Learning Contributor</span><span class="r">Summer 2026</span><span class="note">Shipped the team's Streamlit inference app and caught the split leak above.</span></li>
+    <li><span><b>ColorStack &amp; Alpha Lambda Delta, UMD</b> · Peer and Academic Mentor</span><span class="r">2024-now</span><span class="note">Mentor 50+ students, 20+ of them one-on-one.</span></li>
   </ul>
 </section>
 
 <section>
-  <h2>Experience</h2>
-  <ul>
-    <li>
-      <div class="row"><span><span class="name">ServiceNow</span> · Capstone Engineer, AI.Accelerate FY26 (external program)</span><span class="meta">Jun-Aug 2026</span></div>
-      <p class="desc">Built TradeDesk and demoed it live at Discover ServiceNow.</p>
-    </li>
-    <li>
-      <div class="row"><span><span class="name">AI4ALL Ignite</span> · Machine Learning Contributor</span><span class="meta">Summer 2026</span></div>
-      <p class="desc">Shipped the team's Streamlit inference app and caught the split leak above.</p>
-    </li>
-    <li>
-      <div class="row"><span><span class="name">ColorStack &amp; Alpha Lambda Delta, UMD</span> · Peer and Academic Mentor</span><span class="meta">2024-now</span></div>
-      <p class="desc">Mentor 50+ students, 20+ of them one-on-one.</p>
-    </li>
+  <h2><span>Education</span><span>May 2028</span></h2>
+  <ul class="list">
+    <li><span><b>University of Maryland, College Park</b> · B.S. Computer Science and B.S. Applied Mathematics</span><span class="r">GPA 3.5</span><span class="note">Algorithms, Advanced Data Structures, Artificial Intelligence, Probability, Linear Algebra, Computer Systems (C, MIPS), Programming Languages (OCaml, Rust)</span></li>
   </ul>
 </section>
 
-<section>
-  <h2>Education</h2>
-  <div class="row"><span><span class="name">University of Maryland, College Park</span></span><span class="meta">May 2028</span></div>
-  <p class="desc">B.S. Computer Science and B.S. Applied Mathematics · GPA 3.5</p>
-  <p class="facts">Algorithms, Advanced Data Structures, Artificial Intelligence, Probability, Linear Algebra, Computer Systems (C, MIPS), Programming Languages (OCaml, Rust)</p>
-</section>
-
-<footer>conyebu@terpmail.umd.edu · updated November 2026</footer>
+<footer>
+  settlement sources: public repos and public posts linked above<br>
+  TESTS = 839 + 410 + 293 + 285 + 189 across five repos · updated November 2026<br>
+  conyebu@terpmail.umd.edu
+</footer>
 
 </main>
 </body>
