@@ -1,175 +1,168 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Chidera Onyebu — CS &amp; Applied Math @ UMD</title>
-    <meta
-      name="description"
-      content="Computer Science and Applied Mathematics at the University of Maryland. Payments systems, research infrastructure, and ML — built so the property you need holds by construction, then proven."
-    />
-    <meta name="theme-color" content="#0c0a09" />
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chidera Onyebu</title>
+<meta name="description" content="Chidera Onyebu. CS and Applied Math at the University of Maryland. Trading systems, research infrastructure, and verification.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chidera Onyebu">
+<meta property="og:description" content="CS and Applied Math at UMD. Trading systems, research infrastructure, and verification. Closed 5th of 1,969 in Susquehanna's Predictions Cup.">
+<meta property="og:url" content="https://dera219.github.io/dera-portfolio/">
+<meta name="color-scheme" content="light dark">
+<style>
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #6b6b6b;
+  --rule: #e6e6e6;
+  --link: #1a4fd6;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f0f10;
+    --fg: #e8e8e6;
+    --muted: #9a9a96;
+    --rule: #262628;
+    --link: #8fb0ff;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.6 var(--sans);
+}
+main { max-width: 680px; margin: 0 auto; padding: 56px 16px 72px; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; font-weight: 600; letter-spacing: -0.01em; }
+h2 {
+  font: 500 12px/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 44px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+p { margin: 0 0 12px; }
+.sub { color: var(--muted); margin: 0 0 14px; }
+.links { font: 14px/1.6 var(--mono); }
+.links a { margin-right: 16px; white-space: nowrap; }
+ul { list-style: none; margin: 0; padding: 0; }
+li { margin: 0 0 22px; }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.name { font-weight: 600; }
+.meta { font: 13px/1.5 var(--mono); color: var(--muted); }
+.desc { margin: 4px 0 0; }
+.facts { font: 13px/1.5 var(--mono); color: var(--muted); margin-top: 4px; }
+.facts a { margin-left: 2px; }
+.compact li { margin-bottom: 8px; }
+footer { margin-top: 48px; font: 13px/1.6 var(--mono); color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
 
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Chidera Onyebu — CS & Applied Math @ UMD" />
-    <meta
-      property="og:description"
-      content="A deployed marketplace with a real money path, a research platform built to kill its own results, and an agent that cannot execute an unconfirmed order."
-    />
-    <meta property="og:url" content="https://dera219.github.io/dera-portfolio/" />
+<header>
+  <h1>Chidera Onyebu</h1>
+  <p class="sub">CS + Applied Math at the University of Maryland, class of 2028.</p>
+  <p>I build trading systems and the infrastructure that tests them: pricing for prediction markets, research stacks built to kill their own results, and agents whose safety holds by construction.</p>
+  <p class="links">
+    <a href="https://github.com/Dera219">github</a>
+    <a href="https://www.linkedin.com/in/chideraonyebu">linkedin</a>
+    <a href="mailto:conyebu@terpmail.umd.edu">email</a>
+    <a href="assets/Chidera-Onyebu-Resume.pdf">resume.pdf</a>
+  </p>
+</header>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+<section>
+  <h2>Work</h2>
+  <ul>
+    <li>
+      <div class="row"><span class="name">cupbot</span><span class="meta">2026 · Python, NumPy</span></div>
+      <p class="desc">API trading bot for Susquehanna's month-long Predictions Cup. Priced 237 binary midterm contracts against Kalshi and Polymarket and modeled correlated outcomes with a one-factor Gaussian copula. Closed 5th of 1,969 entrants.</p>
+      <div class="facts">839 tests · <a href="https://www.linkedin.com/feed/update/urn:li:activity:7527016838375849984/">post</a></div>
+    </li>
+    <li>
+      <div class="row"><span class="name">crucible</span><span class="meta">2026 · Python, NumPy, polars, CRSP</span></div>
+      <p class="desc">Cross-sectional equity research stack over 23.1M rows of CRSP daily data. A causality prover perturbs every observation after t and asserts nothing at or before t moved. Nine hypotheses, each with a stated mechanism, all nine killed by Bonferroni bars over a trial ledger.</p>
+      <div class="facts">410 tests · <a href="https://github.com/Dera219/crucible">code</a></div>
+    </li>
+    <li>
+      <div class="row"><span class="name">aep-verify</span><span class="meta">2026 · Python, Ed25519, RFC 8785</span></div>
+      <p class="desc">Independent verifier for the A-Comm Evidence Protocol, an open draft for proving what an AI agent bought. Built from the spec and passes all 55 conformance checks. Attacked a test purchase 22 ways and filed 9 spec issues upstream, three gaps confirmed by an editor.</p>
+      <div class="facts">285 tests · <a href="https://github.com/Dera219/aep-verify">code</a></div>
+    </li>
+    <li>
+      <div class="row"><span class="name">TradeDesk</span><span class="meta">2026 · Python, LangGraph, FastAPI, MCP</span></div>
+      <p class="desc">LLM paper-trading agent with a structural confirmation gate: the compiled state graph has no trade-to-confirmation edge, and a test asserts its absence. 18 of 18 adversarial evals checked at the broker, 0 unauthorized executions. Demoed live at Discover ServiceNow.</p>
+      <div class="facts">293 tests · <a href="https://github.com/Dera219/tradedesk">code</a></div>
+    </li>
+    <li>
+      <div class="row"><span class="name">Apex</span><span class="meta">2026 · Python</span></div>
+      <p class="desc">Event-driven backtester that enforces no-lookahead in the engine: a signal on bar t fills at bar t+1's open. Its own demo refutes its strategy, beating buy-and-hold in-sample and losing 2.84% a fold out-of-sample.</p>
+      <div class="facts">189 tests · <a href="https://github.com/Dera219/apex-trading-agent">code</a></div>
+    </li>
+    <li>
+      <div class="row"><span class="name">ToolBelt</span><span class="meta">2026 · FastAPI, PostgreSQL, TypeScript, Stripe</span></div>
+      <p class="desc">Two-sided marketplace: a 7,800-line FastAPI/PostgreSQL API and a 4,300-line TypeScript client for Android and web. Every money-moving call is journaled before it is issued, and a double-entry ledger balanced to zero across authorize, capture, and payout in Stripe test mode. Hosting retired in September 2026.</p>
+      <div class="facts"><a href="https://github.com/Dera219/toolbelt">code</a></div>
+    </li>
+    <li>
+      <div class="row"><span class="name">Nutrition5k leakage audit</span><span class="meta">2026 · PyTorch</span></div>
+      <p class="desc">Found a capture-session leak in a team's data split: 94.7% of test dishes shared a session with a training dish, inflating accuracy 2 to 3 points in controlled runs across 5 seeds and 2 architectures.</p>
+      <div class="facts"><a href="https://github.com/Dera219/ai4all-ml-project">code</a></div>
+    </li>
+    <li>
+      <div class="row"><span class="name">Systems coursework</span><span class="meta">2025-2026 · C, OCaml, Rust</span></div>
+      <p class="desc">A UNIX shell executor in C (fork/exec, pipes, dup2 redirection), a compiler toolchain for a C subset in OCaml with a static type checker, and three garbage collectors in Rust.</p>
+    </li>
+  </ul>
+</section>
 
-    <link rel="stylesheet" href="src/css/tokens.css" />
-    <link rel="stylesheet" href="src/css/main.css" />
-  </head>
+<section>
+  <h2>Competitions and honors</h2>
+  <ul class="compact">
+    <li><div class="row"><span>Susquehanna Predictions Cup, 2026 midterms</span><span class="meta">5th of 1,969</span></div></li>
+    <li><div class="row"><span>NFL Big Data Bowl 2027, University Track</span><span class="meta">entry submitted</span></div></li>
+    <li><div class="row"><span>Nigerian National Mathematics Olympiad</span><span class="meta">3x gold medalist</span></div></li>
+    <li><div class="row"><span>Rotary Mathematics Competition, 2024</span><span class="meta">1st place, senior</span></div></li>
+  </ul>
+</section>
 
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+<section>
+  <h2>Experience</h2>
+  <ul>
+    <li>
+      <div class="row"><span><span class="name">ServiceNow</span> · Capstone Engineer, AI.Accelerate FY26 (external program)</span><span class="meta">Jun-Aug 2026</span></div>
+      <p class="desc">Built TradeDesk and demoed it live at Discover ServiceNow.</p>
+    </li>
+    <li>
+      <div class="row"><span><span class="name">AI4ALL Ignite</span> · Machine Learning Contributor</span><span class="meta">Summer 2026</span></div>
+      <p class="desc">Shipped the team's Streamlit inference app and caught the split leak above.</p>
+    </li>
+    <li>
+      <div class="row"><span><span class="name">ColorStack &amp; Alpha Lambda Delta, UMD</span> · Peer and Academic Mentor</span><span class="meta">2024-now</span></div>
+      <p class="desc">Mentor 50+ students, 20+ of them one-on-one.</p>
+    </li>
+  </ul>
+</section>
 
-    <header class="site-header">
-      <div class="wrap">
-        <a class="sig" href="#hero">Chidera<span>.</span></a>
-        <nav aria-label="Primary">
-          <ul>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<section>
+  <h2>Education</h2>
+  <div class="row"><span><span class="name">University of Maryland, College Park</span></span><span class="meta">May 2028</span></div>
+  <p class="desc">B.S. Computer Science and B.S. Applied Mathematics · GPA 3.5</p>
+  <p class="facts">Algorithms, Advanced Data Structures, Artificial Intelligence, Probability, Linear Algebra, Computer Systems (C, MIPS), Programming Languages (OCaml, Rust)</p>
+</section>
 
-    <main id="main">
-      <!--
-        Copy is injected from src/content.js so wording and markup stay separate. The static
-        text below is what a visitor with JavaScript disabled sees — it is kept meaningful
-        rather than empty, because a blank page is a worse failure than an unstyled one.
-      -->
-      <section class="hero" id="hero">
-        <div class="wrap">
-          <p class="hero-kicker label">Payments · Research infrastructure · ML</p>
-          <h1 data-content="hero.tagline">
-            I build systems whose guarantees are <em>structural, not hopeful</em>.
-          </h1>
-          <p class="hero-sub" data-content="hero.subtitle">
-            CS &amp; Applied Mathematics at the University of Maryland.
-          </p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="#work">See the work</a>
-            <a class="btn" href="#contact">Get in touch</a>
-          </div>
-        </div>
-        <div class="scroll-cue" aria-hidden="true">
-          <span></span>
-        </div>
-        <canvas
-          class="hero-canvas"
-          role="img"
-          aria-label="An equity curve that climbs in-sample and falls after the walk-forward boundary."
-        ></canvas>
-      </section>
+<footer>conyebu@terpmail.umd.edu · updated November 2026</footer>
 
-      <aside class="thesis" aria-label="Through-line">
-        <div class="wrap">
-          <p class="label" data-content="thesis.label">The through-line</p>
-          <p data-content="thesis.body">
-            A result that looks good is a claim, not a fact. My job is telling the two
-            <em>apart</em>.
-          </p>
-        </div>
-      </aside>
-
-      <section id="work" aria-labelledby="work-h">
-        <div class="wrap">
-          <div class="section-head" data-reveal>
-            <h2 id="work-h">Selected work</h2>
-            <p class="label">Six systems · live diagrams</p>
-          </div>
-          <ul class="project-grid" data-content="projects">
-            <li>Project list requires JavaScript. The source for each is on GitHub at Dera219.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="about" aria-labelledby="about-h">
-        <div class="wrap">
-          <div class="section-head" data-reveal>
-            <h2 id="about-h">About</h2>
-            <p class="label">UMD · Class of 2028</p>
-          </div>
-          <div class="about-grid">
-            <aside class="about-aside" data-reveal>
-              <dl>
-                <div>
-                  <dt>Studying</dt>
-                  <dd>BS Computer Science &amp; BS Applied Mathematics</dd>
-                </div>
-                <div>
-                  <dt>At</dt>
-                  <dd>University of Maryland, College Park</dd>
-                </div>
-                <div>
-                  <dt>Working on</dt>
-                  <dd>Payments correctness, research tooling, agent safety</dd>
-                </div>
-                <div>
-                  <dt>From</dt>
-                  <dd>Lagos, Nigeria</dd>
-                </div>
-              </dl>
-            </aside>
-            <div class="about-body" data-content="about.body">
-              <p>CS &amp; Applied Math student at the University of Maryland, class of 2028.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="experience" aria-labelledby="experience-h">
-        <div class="wrap">
-          <div class="section-head" data-reveal>
-            <h2 id="experience-h">Experience</h2>
-            <p class="label">Mentoring</p>
-          </div>
-          <ul class="experience-list" data-content="experience"></ul>
-        </div>
-      </section>
-
-      <section id="contact" aria-labelledby="contact-h">
-        <div class="wrap">
-          <div class="section-head" data-reveal>
-            <h2 id="contact-h">Contact</h2>
-            <p class="label">Open to Summer 2027</p>
-          </div>
-          <p class="contact-lead" data-content="contact.lead">
-            If correctness has to outlive the demo, <em>let's talk</em>.
-          </p>
-          <ul class="links" data-content="links"></ul>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="wrap">
-        <p>
-          &copy; <span data-year>2026</span>
-          <span data-content="meta.name">Chidera Onyebu</span>
-        </p>
-        <p class="colophon">
-          Built by hand — no framework, no build step. The six diagrams are live canvas, drawing
-          the mechanism each project is actually about. Every figure in the copy is a button:
-          press it to see how the number was produced.
-        </p>
-      </div>
-    </footer>
-
-    <script type="module" src="src/js/main.js"></script>
-  </body>
+</main>
+</body>
 </html>
